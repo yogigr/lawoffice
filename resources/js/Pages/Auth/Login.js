@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from '@/Components/Button';
 import Checkbox from '@/Components/Checkbox';
 import Guest from '@/Layouts/Guest';
@@ -6,89 +6,105 @@ import Input from '@/Components/Input';
 import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { LoginIcon } from '@heroicons/react/outline';
 
 export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
-        password: '',
-        remember: '',
-    });
+  const { data, setData, post, processing, errors, reset } = useForm({
+    email: '',
+    password: '',
+    remember: '',
+  });
 
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
+  const emailref = useRef(null);
 
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+  useEffect(() => {
+    emailref.current.focus();
+    return () => {
+      reset('password');
     };
+  }, []);
 
-    const submit = (e) => {
-        e.preventDefault();
+  const onHandleChange = (event) => {
+    setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+  };
 
-        post(route('login'));
-    };
+  const submit = (e) => {
+    e.preventDefault();
 
-    return (
-        <Guest>
-            <Head title="Log in" />
+    post(route('login'));
+  };
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
-            <ValidationErrors errors={errors} />
-
-            <form onSubmit={submit}>
-                <div>
-                    <Label forInput="email" value="Email" />
-
-                    <Input
-                        type="text"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <Label forInput="password" value="Password" />
-
-                    <Input
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        handleChange={onHandleChange}
-                    />
-                </div>
-
-                <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
-
-                        <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                    </label>
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <Button className="ml-4" processing={processing}>
-                        Log in
-                    </Button>
-                </div>
-            </form>
-        </Guest>
-    );
+  return (
+    <Guest title="Login" desc="Silahkan login untuk memulai aplikasi" status={status} errors={errors}>
+      <form className='mt-8 space-y-6' onSubmit={submit}>
+        <div className="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label htmlFor="email-address" className="sr-only">
+              Email address
+            </label>
+            <input
+              ref={emailref}
+              id="email-address"
+              name="email"
+              value={data.email}
+              type="email"
+              autoComplete="email"
+              required
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Email address"
+              onChange={(e) => onHandleChange(e)}
+            />
+          </div>
+          <div>
+            <Label forInput="password" value="Password" className="sr-only" />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={data.password}
+              autoComplete="current-password"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="Password"
+              onChange={(e) => onHandleChange(e)}
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Checkbox
+              name="remember"
+              value={data.remember}
+              handleChange={onHandleChange}
+            />
+            <Label
+              forInput="remember"
+              className="ml-2 block text-sm text-gray-900"
+              value="Ingat saya"
+            />
+          </div>
+          <div className="text-sm">
+            {canResetPassword && (
+              <Link
+                href={route("password.request")}
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Lupa password?
+              </Link>
+            )}
+          </div>
+        </div>
+        <div>
+          <Button processing={processing}>
+            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LoginIcon
+                className="h-5 w-5 text-primary-light group-hover:text-primary-light"
+                aria-hidden="true"
+              />
+            </span>
+            Login
+          </Button>
+        </div>
+      </form>
+    </Guest>
+  );
 }

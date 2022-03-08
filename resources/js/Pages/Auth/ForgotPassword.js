@@ -1,54 +1,59 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Button from '@/Components/Button';
 import Guest from '@/Layouts/Guest';
 import Input from '@/Components/Input';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, useForm } from '@inertiajs/inertia-react';
+import { LockClosedIcon, MailIcon } from '@heroicons/react/outline';
+import Label from '@/Components/Label';
 
 export default function ForgotPassword({ status }) {
-    const { data, setData, post, processing, errors } = useForm({
-        email: '',
-    });
+  const { data, setData, post, processing, errors } = useForm({
+    email: '',
+  });
+  
+  const onHandleChange = (event) => {
+    setData(event.target.name, event.target.value);
+  };
 
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
-    };
+  const submit = (e) => {
+    e.preventDefault();
 
-    const submit = (e) => {
-        e.preventDefault();
+    post(route('password.email'));
+  };
 
-        post(route('password.email'));
-    };
-
-    return (
-        <Guest>
-            <Head title="Forgot Password" />
-
-            <div className="mb-4 text-sm text-gray-500 leading-normal">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
+  return (
+    <Guest title="Forgot Password" desc="Silahkan isi email terdaftar anda" status={status} errors={errors}>
+      <form className="mt-8 space-y-6" onSubmit={submit}>
+        <div>
+          <Label forInput="email" value="Email" className="sr-only" />
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MailIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </div>
+            <Input
+              name="email"
+              value={data.email}
+              className="pl-10"
+              placeholder="you@example.com"
+              handleChange={onHandleChange}
+              autoFocus={true}
+            />
+          </div>
+        </div>
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
-            <ValidationErrors errors={errors} />
-
-            <form onSubmit={submit}>
-                <Input
-                    type="text"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    handleChange={onHandleChange}
-                />
-
-                <div className="flex items-center justify-end mt-4">
-                    <Button className="ml-4" processing={processing}>
-                        Email Password Reset Link
-                    </Button>
-                </div>
-            </form>
-        </Guest>
-    );
+        <div>
+          <Button processing={processing}>
+            <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LockClosedIcon
+                className="h-5 w-5 text-primary-light group-hover:text-primary-light"
+                aria-hidden="true"
+              />
+            </span>
+            Email Password Reset Link
+          </Button>
+        </div>
+      </form>
+    </Guest>
+  );
 }

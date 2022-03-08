@@ -1,123 +1,207 @@
-import React, { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/inertia-react';
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
+import {
+  BellIcon,
+  MenuAlt2Icon,
+  XIcon,
+} from "@heroicons/react/outline";
+import { Head, Link } from "@inertiajs/inertia-react";
+import Navigation from "@/Components/Navigation";
 
-export default function Authenticated({ auth, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+const userNavigation = [
+  { name: "Profile", href: "#", method: "get", as: "button" },
+  { name: "Sign out", href: route("logout"), method: "post", as: "button" },
+];
 
-    return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto text-gray-500" />
-                                </Link>
-                            </div>
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
+export default function Authenticated({ props, title, children }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <div className="ml-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {auth.user.name}
-
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+  return (
+    <div className="h-screen flex overflow-hidden bg-gray-100">
+      <Head title={title} />
+      <Transition.Root show={sidebarOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 flex z-40 md:hidden"
+          onClose={setSidebarOpen}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+          </Transition.Child>
+          <Transition.Child
+            as={Fragment}
+            enter="transition ease-in-out duration-300 transform"
+            enterFrom="-translate-x-full"
+            enterTo="translate-x-0"
+            leave="transition ease-in-out duration-300 transform"
+            leaveFrom="translate-x-0"
+            leaveTo="-translate-x-full"
+          >
+            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-in-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in-out duration-300"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <div className="absolute top-0 right-0 -mr-12 pt-2">
+                  <button
+                    type="button"
+                    className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    onClick={() => setSidebarOpen(false)}
+                  >
+                    <span className="sr-only">
+                      Close sidebar
+                    </span>
+                    <XIcon
+                      className="h-6 w-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </button>
                 </div>
+              </Transition.Child>
+              <div className="flex-shrink-0 flex items-center px-4">
+                <h1
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
+                  alt="Workflow"
+                />
+              </div>
+              <div className="mt-5 flex-1 h-0 overflow-y-auto">
+                <Navigation className="px-2 space-y-1" desktop={false} />
+              </div>
+            </div>
+          </Transition.Child>
+          <div className="flex-shrink-0 w-14" aria-hidden="true">
+            {/* Dummy element to force sidebar to shrink to fit close icon */}
+          </div>
+        </Dialog>
+      </Transition.Root>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{auth.user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{auth.user.email}</div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
-            )}
-
-            <main>{children}</main>
+      {/* Static sidebar for desktop */}
+      <div className="hidden bg-indigo-700 md:flex md:flex-shrink-0">
+        <div className="flex flex-col w-64">
+          {/* Sidebar component, swap this element with another sidebar if you like */}
+          <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+            <div className="flex items-center flex-shrink-0 px-4">
+              <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
+                alt="Workflow"
+              />
+            </div>
+            <div className="mt-5 flex-1 flex flex-col">
+              <Navigation className="flex-1 px-2 space-y-1" />
+            </div>
+          </div>
         </div>
-    );
+      </div>
+      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+          <button
+            type="button"
+            className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <span className="sr-only">Open sidebar</span>
+            <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+          <div className="flex-1 px-4 flex justify-between">
+            <div className="flex-1 flex"></div>
+            <div className="ml-4 flex items-center md:ml-6">
+              <button
+                type="button"
+                className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                <span className="sr-only">
+                  View notifications
+                </span>
+                <BellIcon
+                  className="h-6 w-6"
+                  aria-hidden="true"
+                />
+              </button>
+
+              {/* Profile dropdown */}
+              <Menu as="div" className="ml-3 relative">
+                <div>
+                  <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <span className="sr-only">
+                      Open user menu
+                    </span>
+                    <img
+                      className="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
+                  </Menu.Button>
+                </div>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {userNavigation.map((item) => (
+                      <Menu.Item key={item.name}>
+                        {({ active }) => (
+                          <Link
+                            href={item.href}
+                            method={item.method}
+                            as={item.as}
+                            className={classNames(
+                              active
+                                ? "bg-gray-100"
+                                : "",
+                              "w-full text-left block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            {item.name}
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </div>
+          </div>
+        </div>
+
+        <main className="flex-1 relative overflow-y-auto focus:outline-none">
+          <div className="py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+              <h1 className="text-2xl font-semibold text-gray-900">
+                {title}
+              </h1>
+            </div>
+            <div className="mx-auto px-4 sm:px-6 md:px-8">
+              <div className="py-4">
+                {children}             
+              </div> 
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 }
