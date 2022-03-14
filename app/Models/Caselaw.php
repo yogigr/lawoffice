@@ -4,13 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Caselaw extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $fillable = [
         'code', 'start_date', 'end_date', 'title', 'desc', 'service_id', 'status_id', 'client_id'
+    ];
+
+    public $sortable = [
+        'id', 'code', 'start_date', 'end_date', 'title', 'desc', 'created_at', 'updated_at'
     ];
 
     //relationship
@@ -47,5 +52,10 @@ class Caselaw extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'caselaw_user');
     }
 }

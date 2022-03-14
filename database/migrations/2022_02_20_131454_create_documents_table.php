@@ -20,9 +20,11 @@ class CreateDocumentsTable extends Migration
             $table->text('desc');
             $table->string('filename')->unique()->nullable();
             $table->unsignedBigInteger('caselaw_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('caselaw_id')->references('id')->on('caselaws')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

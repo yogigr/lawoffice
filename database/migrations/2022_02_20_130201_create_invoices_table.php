@@ -19,9 +19,10 @@ class CreateInvoicesTable extends Migration
             $table->date('date');
             $table->date('due_date');
             $table->unsignedBigInteger('caselaw_id');
-            $table->decimal('tax', 12, 0);
-            $table->decimal('discount', 12, 0);
+            $table->decimal('tax', 12, 0)->default(0);
+            $table->decimal('discount', 12, 0)->Default(0);
             $table->string('note')->nullable();
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
 
             $table->foreign('caselaw_id')->references('id')->on('caselaws')->onDelete('cascade');

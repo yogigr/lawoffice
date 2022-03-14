@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/outline";
 import { Head, Link } from "@inertiajs/inertia-react";
 import Navigation from "@/Components/Navigation";
+import ValidationErrors from "@/Components/ValidationErrors";
+import SuccessAlert from "@/Components/SuccessAlert";
 
 const userNavigation = [
   { name: "Profile", href: "#", method: "get", as: "button" },
@@ -19,6 +21,7 @@ function classNames(...classes) {
 
 export default function Authenticated({ props, title, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { errors, status, auth } = props;
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100">
@@ -146,8 +149,8 @@ export default function Authenticated({ props, title, children }) {
                     </span>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
+                      src={auth.user.picture}
+                      alt={auth.user.name}
                     />
                   </Menu.Button>
                 </div>
@@ -195,9 +198,19 @@ export default function Authenticated({ props, title, children }) {
               </h1>
             </div>
             <div className="mx-auto px-4 sm:px-6 md:px-8">
+              {
+                status && (
+                  <SuccessAlert message={status} />
+                )
+              }
+              {
+                errors && Object.keys(errors).length > 0 && (
+                  <ValidationErrors errors={errors} />
+                )
+              }
               <div className="py-4">
-                {children}             
-              </div> 
+                {children}
+              </div>
             </div>
           </div>
         </main>

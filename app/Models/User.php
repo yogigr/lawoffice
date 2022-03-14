@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Avatar;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -46,6 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public $appends = ['picture'];
+
     //relationship
     public function role()
     {
@@ -60,5 +63,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function caselaws()
+    {
+        return $this->belongsToMany(Caselaw::class, 'caselaw_user');
+    }
+
+    //custom
+    public function getPictureAttribute()
+    {
+        if ($this->image && Storage::disk('image')->exists($this->image->filename)) {
+            return asset('storage/image/' . $this->image->filename);
+        }
+
+        return Avatar::create($this->name)->toBase64();
     }
 }

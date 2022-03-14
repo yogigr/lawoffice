@@ -11,22 +11,30 @@ import {
 } from "@heroicons/react/outline";
 import { Link } from '@inertiajs/inertia-react';
 
-const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Cases", href: "#", icon: ClipboardListIcon, current: false },
-  { name: "Appointments", href: "#", icon: CalendarIcon, current: false },
-  { name: "Invoices", href: "#", icon: CalculatorIcon, current: false },
-  { name: "Services", href: "#", icon: ViewGridIcon, current: false },
-  { name: "Users", href: "#", icon: UsersIcon, current: false },
-  { name: "Blogs", href: "#", icon: TagIcon, current: false },
-  { name: "Settings", href: "#", icon: CogIcon, current: false },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navigation = ({ className, desktop = true}) => {
+const Navigation = ({ className, desktop = true }) => {
+  const navigation = [
+    { name: "Dashboard", href: route('dashboard'), icon: HomeIcon, current: route().current('dashboard') },
+    {
+      name: "Cases",
+      href: route('caselaw.index'),
+      icon: ClipboardListIcon,
+      current: route().current('caselaw.index') || route().current('caselaw.show')
+        || route().current('caselaw.create') || route().current('caselaw.edit')
+        || route().current('caselaw.lawyer.index') || route().current('caselaw.appointment.index')
+        || route().current('caselaw.invoice.index') || route().current('caselaw.message.index')
+        || route().current('caselaw.document.index')
+    },
+    { name: "Appointments", href: "#", icon: CalendarIcon, current: false },
+    { name: "Invoices", href: "#", icon: CalculatorIcon, current: false },
+    { name: "Services", href: "#", icon: ViewGridIcon, current: false },
+    { name: "Users", href: "#", icon: UsersIcon, current: false },
+    { name: "Blogs", href: "#", icon: TagIcon, current: false },
+    { name: "Settings", href: "#", icon: CogIcon, current: false },
+  ];
   return (
     <nav className={className}>
       {navigation.map((item) => (

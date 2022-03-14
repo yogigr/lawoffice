@@ -10,7 +10,7 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code', 'date', 'due_date', 'caselaw_id', 'tax', 'discount', 'note'
+        'code', 'date', 'due_date', 'caselaw_id', 'tax', 'discount', 'note', 'is_paid'
     ];
 
     //relationship
@@ -22,5 +22,16 @@ class Invoice extends Model
     public function details()
     {
         return $this->hasMany(Detail::class);
+    }
+
+    //custom
+    public function getTotalAttribute()
+    {
+        $total = 0;
+        foreach ($this->details as $detail) {
+            $total += $detail->amount;
+        }
+
+        return $total + $this->tax - $this->discount;
     }
 }
