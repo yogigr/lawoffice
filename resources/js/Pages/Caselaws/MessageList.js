@@ -1,7 +1,18 @@
 import CircularButton from "@/Components/CircularButton";
 import { TrashIcon } from "@heroicons/react/outline";
 
-export default function MessageList({ messages, onDelete }) {
+const DeleteButton = ({ onDelete }) => (
+  <div className="text-right">
+    <CircularButton
+      className="bg-gray-100 hover:bg-gray-200 focus:ring-gray-200"
+      onClick={onDelete}
+    >
+      <TrashIcon className="w-4 h-4" />
+    </CircularButton>
+  </div>
+)
+
+export default function MessageList({ messages, onDelete, auth }) {
   return (
     <div>
       <div className="flow-root mt-6">
@@ -22,14 +33,17 @@ export default function MessageList({ messages, onDelete }) {
                       {message.created_at}
                     </time>
                   </div>
-                  <div className="text-right">
-                    <CircularButton
-                      className="bg-gray-100 hover:bg-gray-200 focus:ring-gray-200"
-                      onClick={() => onDelete(message)}
-                    >
-                      <TrashIcon className="w-4 h-4" />
-                    </CircularButton>
-                  </div>
+                  {
+                    auth.user.role_id == 1 ? (
+
+                      <DeleteButton onDelete={() => onDelete(message)} />
+
+                    ) : auth.permissions.includes('delete-message') && auth.user.id === message.user_id ? (
+
+                      <DeleteButton onDelete={() => onDelete(message)} />
+
+                    ) : null
+                  }
                 </div>
               </div>
               <div className="mt-1">

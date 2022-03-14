@@ -1,3 +1,4 @@
+import AvatarLink from '@/Components/AvatarLink';
 import CircularButton from '@/Components/CircularButton';
 import DescriptionList from '@/Components/DescriptionList';
 import SlideOver from '@/Components/SlideOver';
@@ -39,6 +40,16 @@ const DocumentShow = ({
                     <DocumentIcon className='h-4 w-4 mr-1' />
                     {document.filename}
                   </div>
+                )
+              },
+              {
+                label: 'Sender',
+                value: (
+                  <AvatarLink
+                    avatar={document.user.picture}
+                    name={document.user.name}
+                    href="#"
+                  />
                 )
               },
               {

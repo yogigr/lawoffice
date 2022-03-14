@@ -10,27 +10,36 @@ import React from 'react';
 import CaselawTabs from './CaselawTabs';
 
 const Show = (props) => {
+  const { auth } = props;
   const caselaw = props.caselaw.data;
   const [deleteModal, setDeleteModal] = React.useState(false);
   return (
     <Authenticated props={props} title={`CASE DETAIL ${caselaw.code}`}>
-      <CaselawTabs caselaw={caselaw} />
+      <CaselawTabs caselaw={caselaw} permissions={auth.permissions} />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
         <div className="px-4 py-5 sm:p-6">
           <span className="relative z-0 inline-flex shadow-sm rounded-md">
-            <Link
-              href={route("caselaw.edit", caselaw.id)}
-              className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-            >
-              Edit
-            </Link>
-            <button
-              type="button"
-              onClick={() => setDeleteModal(true)}
-              className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-            >
-              Hapus
-            </button>
+            {
+              auth.permissions.includes('edit-caselaw') && (
+                <Link
+                  href={route("caselaw.edit", caselaw.id)}
+                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  Edit
+                </Link>
+              )
+            }
+            {
+              auth.permissions.includes('delete-caselaw') && (
+                <button
+                  type="button"
+                  onClick={() => setDeleteModal(true)}
+                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                >
+                  Hapus
+                </button>
+              )
+            }
           </span>
         </div>
         <div className="px-4 py-5 sm:p-6">

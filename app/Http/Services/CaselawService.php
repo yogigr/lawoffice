@@ -64,7 +64,7 @@ class CaselawService
            }
            if (request('user_id')) {
                $query->whereHas('users', function($usersQuery) {
-                   $usersQuery->whereId(request('user_id'));
+                   $usersQuery->where('user_id', request('user_id'));
                });
            }
            if (request('code')) {

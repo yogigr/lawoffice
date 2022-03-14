@@ -79,4 +79,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return Avatar::create($this->name)->toBase64();
     }
+
+    public function getPermissionsAttribute()
+    {
+        switch ($this->role_id) {
+            case 2:
+                return config('lawyer.permissions');
+                break;
+            case 3:
+                return config('client.permissions');
+                break;
+            default:
+                return config('permissions');
+                break;
+        }
+    }
 }

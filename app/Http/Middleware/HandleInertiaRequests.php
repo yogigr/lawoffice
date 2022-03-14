@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
             'appName' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => $request->user() ? $request->user()->permissions : [],
             ],
             'status' => session('status'),
             'inertia' => request()->inertia(),

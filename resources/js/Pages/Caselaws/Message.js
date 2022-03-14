@@ -10,7 +10,7 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 
 const Message = (props) => {
-  const { caselaw, messages } = props;
+  const { caselaw, messages, auth } = props;
   const { user } = props.auth;
   const [pageNum, setPageNum] = useState(1);
   const [inertia, setInertia] = useState(props.inertia);
@@ -42,7 +42,7 @@ const Message = (props) => {
 
   return (
     <Authenticated props={props} title={`MESSAGE ${caselaw.code}`}>
-      <CaselawTabs caselaw={caselaw} />
+      <CaselawTabs caselaw={caselaw} permissions={auth.permissions} />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
         <div className="px-4 py-5 sm:p-6">
           {
@@ -53,6 +53,7 @@ const Message = (props) => {
                   setSelectedMessage(v)
                   setDeleteModal(true)
                 }}
+                auth={auth}
               />
             ) : (
               <EmptyState model="Message" />

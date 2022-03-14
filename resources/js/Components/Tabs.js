@@ -20,7 +20,9 @@ export default function Tabs({ tabs }) {
           onChange={(e) => Inertia.get(e.target.value)}
         >
           {tabs.map((tab) => (
-            <option key={tab.name} value={tab.href}>{tab.name}</option>
+            tab.show && (
+              <option key={tab.name} value={tab.href}>{tab.name}</option>
+            )
           ))}
         </select>
       </div>
@@ -28,19 +30,21 @@ export default function Tabs({ tabs }) {
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             {tabs.map((tab) => (
-              <Link
-                key={tab.name}
-                href={tab.href}
-                className={classNames(
-                  tab.current
-                    ? 'border-indigo-500 text-indigo-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                  'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
-                )}
-                aria-current={tab.current ? 'page' : undefined}
-              >
-                {tab.name}
-              </Link>
+              tab.show && (
+                <Link
+                  key={tab.name}
+                  href={tab.href}
+                  className={classNames(
+                    tab.current
+                      ? 'border-indigo-500 text-indigo-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                    'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                  )}
+                  aria-current={tab.current ? 'page' : undefined}
+                >
+                  {tab.name}
+                </Link>
+              )
             ))}
           </nav>
         </div>

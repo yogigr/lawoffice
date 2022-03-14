@@ -1,12 +1,41 @@
+import AvatarLink from '@/Components/AvatarLink';
 import CircularButton from '@/Components/CircularButton';
 import { DocumentIcon, PencilIcon, TrashIcon, ViewListIcon } from '@heroicons/react/outline';
 import React from 'react';
+
+const ShowButton = ({ onClick }) => (
+  <CircularButton
+    className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+    onClick={onClick}
+  >
+    <ViewListIcon className='h-4 w-4' />
+  </CircularButton>
+);
+
+const EditButton = ({ onClick }) => (
+  <CircularButton
+    onClick={onClick}
+    className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+  >
+    <PencilIcon className='h-4 w-4' />
+  </CircularButton>
+);
+
+const DeleteButton = ({ onClick }) => (
+  <CircularButton
+    className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+    onClick={onClick}
+  >
+    <TrashIcon className='h-4 w-4' />
+  </CircularButton>
+)
 
 const DocumentTable = ({
   documents,
   onEdit,
   onDelete,
-  onShowDetail
+  onShowDetail,
+  auth
 }) => {
   return (
     <div className="flex flex-col">
@@ -34,6 +63,12 @@ const DocumentTable = ({
                   >
                     Document Title
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Sender
+                  </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -55,31 +90,56 @@ const DocumentTable = ({
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{document.title}</div>
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm">
+                          <AvatarLink
+                            avatar={document.user.picture}
+                            name={document.user.name}
+                            href="#"
+                          />
+                        </div>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
-                        <div>
-                          <CircularButton
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                            onClick={() => onShowDetail(document)}
-                          >
-                            <ViewListIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
-                        <div className='ml-2'>
-                          <CircularButton
-                            onClick={() => onEdit(document)}
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                          >
-                            <PencilIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
-                        <div className='ml-2'>
-                          <CircularButton
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                            onClick={() => onDelete(document)}
-                          >
-                            <TrashIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
+                        {
+                          auth.user.role_id === 1 ? (
+                            <>
+                              <div>
+                                <ShowButton onClick={() => onShowDetail(document)} />
+                              </div>
+                              <div className='ml-2'>
+                                <EditButton onClick={() => onEdit(document)} />
+                              </div>
+                              <div className='ml-2'>
+                                <DeleteButton onClick={() => onDelete(document)} />
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              {
+                                auth.permissions.includes('view-document') && (
+                                  <div>
+                                    <ShowButton onClick={() => onShowDetail(document)} />
+                                  </div>
+                                )
+                              }
+                              {
+                                auth.permissions.includes('edit-document') && auth.user.id === document.user_id && (
+                                  <div className='ml-2'>
+                                    <EditButton onClick={() => onEdit(document)} />
+                                  </div>
+                                )
+                              }
+                              {
+                                auth.permissions.includes('delete-document') && auth.user.id === document.user_id && (
+                                  <div className='ml-2'>
+                                    <DeleteButton onClick={() => onDelete(document)} />
+                                  </div>
+                                )
+                              }
+                            </>
+                          )
+                        }
+
                       </td>
                     </tr>
                   ))

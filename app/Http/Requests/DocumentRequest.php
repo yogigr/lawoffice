@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DocumentRequest extends FormRequest
@@ -14,7 +15,9 @@ class DocumentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->input('_method') == 'PATCH' 
+        ? Gate::allows('create-document') 
+        : Gate::allows('edit-document');
     }
 
     /**

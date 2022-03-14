@@ -4,7 +4,7 @@ import { toCurrency } from '@/utils/helper';
 import { CalendarIcon, PencilIcon, TrashIcon, ViewListIcon } from '@heroicons/react/outline';
 import React from 'react';
 
-const InvoiceTable = ({ invoices, onEdit, onDelete, onShowDetail }) => {
+const InvoiceTable = ({ invoices, onEdit, onDelete, onShowDetail, permissions }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -83,30 +83,42 @@ const InvoiceTable = ({ invoices, onEdit, onDelete, onShowDetail }) => {
 
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
-                        <div>
-                          <CircularButton
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                            onClick={() => onShowDetail(invoice)}
-                          >
-                            <ViewListIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
-                        <div className='ml-2'>
-                          <CircularButton
-                            onClick={() => onEdit(invoice)}
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                          >
-                            <PencilIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
-                        <div className='ml-2'>
-                          <CircularButton
-                            className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
-                            onClick={() => onDelete(invoice)}
-                          >
-                            <TrashIcon className='h-4 w-4' />
-                          </CircularButton>
-                        </div>
+                        {
+                          permissions.includes('view-invoice') && (
+                            <div>
+                              <CircularButton
+                                className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+                                onClick={() => onShowDetail(invoice)}
+                              >
+                                <ViewListIcon className='h-4 w-4' />
+                              </CircularButton>
+                            </div>
+                          )
+                        }
+                        {
+                          permissions.includes('edit-invoice') && (
+                            <div className='ml-2'>
+                              <CircularButton
+                                onClick={() => onEdit(invoice)}
+                                className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+                              >
+                                <PencilIcon className='h-4 w-4' />
+                              </CircularButton>
+                            </div>
+                          )
+                        }
+                        {
+                          permissions.includes('delete-invoice') && (
+                            <div className='ml-2'>
+                              <CircularButton
+                                className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'
+                                onClick={() => onDelete(invoice)}
+                              >
+                                <TrashIcon className='h-4 w-4' />
+                              </CircularButton>
+                            </div>
+                          )
+                        }
                       </td>
                     </tr>
                   ))

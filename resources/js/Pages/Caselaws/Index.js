@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import Table from './Table';
 
 const Index = (props) => {
-  const { statuses, services, caselaws } = props;
+  const { statuses, services, caselaws, auth } = props;
   const [pageNum, setPageNum] = useState(1);
   const [statusId, setStatusId] = useState("");
   const [serviceId, setServiceId] = useState("");
@@ -54,16 +54,21 @@ const Index = (props) => {
         <div className="px-4 py-5 sm:p-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
             <div>
-              <Link
-                href={route("caselaw.create")}
-                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                <PlusIcon
-                  className="-ml-0.5 mr-2 h-4 w-4"
-                  aria-hidden="true"
-                />
-                Case
-              </Link>
+              {
+                auth.permissions.includes('create-caselaw') && (
+                  <Link
+                    href={route("caselaw.create")}
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    <PlusIcon
+                      className="-ml-0.5 mr-2 h-4 w-4"
+                      aria-hidden="true"
+                    />
+                    Case
+                  </Link>
+                )
+              }
+
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center">
               <div className="mt-2 sm:mt-0 sm:mr-2">

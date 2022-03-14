@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CaselawRequest extends FormRequest
@@ -13,7 +14,9 @@ class CaselawRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->input('_method') == 'PATCH' 
+        ? Gate::allows('edit-caselaw')
+        : Gate::allows('create-caselaw');
     }
 
     /**

@@ -86,7 +86,7 @@ export default function Authenticated({ props, title, children }) {
                 />
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                <Navigation className="px-2 space-y-1" desktop={false} />
+                <Navigation className="px-2 space-y-1" desktop={false} permissions={auth.permissions} />
               </div>
             </div>
           </Transition.Child>
@@ -109,7 +109,7 @@ export default function Authenticated({ props, title, children }) {
               />
             </div>
             <div className="mt-5 flex-1 flex flex-col">
-              <Navigation className="flex-1 px-2 space-y-1" />
+              <Navigation className="flex-1 px-2 space-y-1" permissions={auth.permissions} />
             </div>
           </div>
         </div>

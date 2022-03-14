@@ -12,7 +12,7 @@ import AppointmentTable from './AppointmentTable';
 import CaselawTabs from './CaselawTabs';
 
 const Appointment = (props) => {
-  const { caselaw, appointments } = props;
+  const { caselaw, appointments, auth } = props;
   const [formOpen, setFormOpen] = useState(false)
   const [pageNum, setPageNum] = useState(1);
   const [inertia, setInertia] = useState(props.inertia);
@@ -45,7 +45,7 @@ const Appointment = (props) => {
 
   return (
     <Authenticated props={props} title={`APPOINTMENT ${caselaw.code}`}>
-      <CaselawTabs caselaw={caselaw} />
+      <CaselawTabs caselaw={caselaw} permissions={auth.permissions} />
       <AppointmentForm
         open={formOpen}
         caselaw={caselaw}
@@ -64,16 +64,20 @@ const Appointment = (props) => {
         appointment={selectedAppointment}
       />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
-        <div className="px-4 py-5 sm:p-6">
-          <div className='grid grid-cols-1 sm:grid-cols-6'>
-            <div>
-              <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
-                <PlusIcon className='mr-1 h-4 w-4' />
-                Appointment
-              </Button>
+        {
+          auth.permissions.includes('create-appointment') && (
+            <div className="px-4 py-5 sm:p-6">
+              <div className='grid grid-cols-1 sm:grid-cols-6'>
+                <div>
+                  <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
+                    <PlusIcon className='mr-1 h-4 w-4' />
+                    Appointment
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )
+        }
         <div className="px-4 py-5 sm:p-6">
           {
             appointments && appointments.data.length > 0 ? (
@@ -91,6 +95,7 @@ const Appointment = (props) => {
                   setSelectedAppointment(v)
                   setOpenDetail(true)
                 }}
+                permissions={auth.permissions}
               />
             ) : (
               <EmptyState model="Appointment" />

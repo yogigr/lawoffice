@@ -43,8 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/caselaw/{caselaw}/document', [CaselawController::class, 'document'])->name('caselaw.document.index');
     Route::resource('/caselaw', CaselawController::class);
 
-    Route::resource('/appointment', AppointmentController::class);
-    Route::resource('/invoice', InvoiceController::class);
+    Route::resource('/appointment', AppointmentController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('/invoice', InvoiceController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('/message', MessageController::class)->only(['store', 'destroy']);
 
     Route::get('/document/{document}/download', [DocumentController::class, 'download'])->name('document.download');

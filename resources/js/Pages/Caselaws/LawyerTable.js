@@ -5,7 +5,7 @@ import { TrashIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
 import React, { useState, useEffect } from 'react';
 
-const LaywerTable = ({ lawyers, caselaw }) => {
+const LaywerTable = ({ lawyers, caselaw, permissions }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedLawyerId, setSelectedLawyerId] = useState(null);
   useEffect(() => {
@@ -73,12 +73,16 @@ const LaywerTable = ({ lawyers, caselaw }) => {
                           <div className="text-sm text-gray-900">{lawyer.mobile}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <CircularButton
-                            className='text-white bg-red-600 hover:bg-red-700 focus:ring-red-500'
-                            onClick={() => setSelectedLawyerId(lawyer.id)}
-                          >
-                            <TrashIcon className="h-5 w-5" />
-                          </CircularButton>
+                          {
+                            permissions.includes('delete-lawyer') && (
+                              <CircularButton
+                                className='text-white bg-red-600 hover:bg-red-700 focus:ring-red-500'
+                                onClick={() => setSelectedLawyerId(lawyer.id)}
+                              >
+                                <TrashIcon className="h-5 w-5" />
+                              </CircularButton>
+                            )
+                          }
                         </td>
                       </tr>
                     ))

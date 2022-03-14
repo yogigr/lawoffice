@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AppointmentRequest;
 use App\Http\Services\AppointmentService;
 
@@ -11,12 +12,9 @@ class AppointmentController extends Controller
 {
     public function index()
     {
-        //
-    }
-
-    public function create()
-    {
-        //
+        if (!Gate::allows('view-appointment')) {
+            abort(403);
+        }
     }
 
     public function store(AppointmentRequest $request, AppointmentService $service)
@@ -26,15 +24,6 @@ class AppointmentController extends Controller
         ->with('status', 'Berhasil membuat appointment baru');
     }
 
-    public function show(Appointment $appointment)
-    {
-        //
-    }
-
-    public function edit(Appointment $appointment)
-    {
-        //
-    }
 
     public function update(AppointmentRequest $request, AppointmentService $service, Appointment $appointment)
     {
@@ -45,6 +34,10 @@ class AppointmentController extends Controller
 
     public function destroy(AppointmentService $service, Appointment $appointment)
     {
+        if (!Gate::allows('delete-appointment')) {
+            abort(403);
+        }
+
         $caselaw = $appointment->caselaw;
         $service->destroy($appointment);
         return redirect()->route('caselaw.appointment.index', $caselaw)

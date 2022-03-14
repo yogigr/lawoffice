@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class InvoiceRequest extends FormRequest
@@ -13,7 +14,9 @@ class InvoiceRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->input('_method') == 'PATCH' 
+        ? Gate::allows('create-invoice') 
+        : Gate::allows('edit-invoice');;
     }
 
     /**

@@ -45,7 +45,7 @@ const Document = (props) => {
 
   return (
     <Authenticated props={props} title={`DOCUMENTS ${caselaw.code}`}>
-      <CaselawTabs caselaw={caselaw} />
+      <CaselawTabs caselaw={caselaw} permissions={auth.permissions} />
       <DocumentForm
         open={formOpen}
         caselaw={caselaw}
@@ -65,16 +65,20 @@ const Document = (props) => {
         document={selectedDocument}
       />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
-        <div className="px-4 py-5 sm:p-6">
-          <div className='grid grid-cols-1 sm:grid-cols-6'>
-            <div>
-              <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
-                <PlusIcon className='mr-1 h-4 w-4' />
-                Document
-              </Button>
+        {
+          auth.permissions.includes('create-document') && (
+            <div className="px-4 py-5 sm:p-6">
+              <div className='grid grid-cols-1 sm:grid-cols-6'>
+                <div>
+                  <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
+                    <PlusIcon className='mr-1 h-4 w-4' />
+                    Document
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )
+        }
         <div className="px-4 py-5 sm:p-6">
           {
             documents && documents.data.length > 0 ? (
@@ -92,6 +96,7 @@ const Document = (props) => {
                   setSelectedDocument(v)
                   setOpenDetail(true)
                 }}
+                auth={auth}
               />
             ) : (
               <EmptyState model="Document" />

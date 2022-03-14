@@ -12,7 +12,7 @@ import InvoiceShow from './InvoiceShow';
 import InvoiceTable from './InvoiceTable';
 
 const Invoice = (props) => {
-  const { caselaw, invoices } = props;
+  const { caselaw, invoices, auth } = props;
   const [formOpen, setFormOpen] = useState(false)
   const [pageNum, setPageNum] = useState(1);
   const [inertia, setInertia] = useState(props.inertia);
@@ -45,7 +45,7 @@ const Invoice = (props) => {
 
   return (
     <Authenticated props={props} title={`INVOICE ${caselaw.code}`}>
-      <CaselawTabs caselaw={caselaw} />
+      <CaselawTabs caselaw={caselaw} permissions={auth.permissions} />
       <InvoiceForm
         open={formOpen}
         caselaw={caselaw}
@@ -64,16 +64,20 @@ const Invoice = (props) => {
         invoice={selectedInvoice}
       />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
-        <div className="px-4 py-5 sm:p-6">
-          <div className='grid grid-cols-1 sm:grid-cols-6'>
-            <div>
-              <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
-                <PlusIcon className='mr-1 h-4 w-4' />
-                Invoice
-              </Button>
+        {
+          auth.permissions.includes('create-invoice') && (
+            <div className="px-4 py-5 sm:p-6">
+              <div className='grid grid-cols-1 sm:grid-cols-6'>
+                <div>
+                  <Button type='button' onClick={() => setFormOpen(true)} processing={formOpen}>
+                    <PlusIcon className='mr-1 h-4 w-4' />
+                    Invoice
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          )
+        }
         <div className="px-4 py-5 sm:p-6">
           {
             invoices && invoices.data.length > 0 ? (
@@ -91,6 +95,7 @@ const Invoice = (props) => {
                   setSelectedInvoice(v)
                   setOpenDetail(true)
                 }}
+                permissions={auth.permissions}
               />
             ) : (
               <EmptyState model="Invoice" />
