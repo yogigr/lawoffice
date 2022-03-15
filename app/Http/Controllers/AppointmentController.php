@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AppointmentRequest;
 use App\Http\Services\AppointmentService;
+use App\Http\Resources\AppointmentResource;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(AppointmentService $service)
     {
         if (!Gate::allows('view-appointment')) {
             abort(403);
         }
+
+        return Inertia::render('Appointment/Index', [
+            'appointments' => AppointmentResource::collection(
+                $service->getAppointments(Auth::user())->paginate(10)
+            )
+        ]);
     }
 
     public function store(AppointmentRequest $request, AppointmentService $service)

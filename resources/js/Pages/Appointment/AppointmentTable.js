@@ -1,8 +1,19 @@
 import CircularButton from '@/Components/CircularButton';
 import { CalendarIcon, ClockIcon, PencilIcon, TrashIcon, ViewListIcon } from '@heroicons/react/outline';
+import { Link } from '@inertiajs/inertia-react';
 import React from 'react';
 
-const AppointmentTable = ({ appointments, onEdit, onDelete, onShowDetail, permissions }) => {
+const AppointmentTable = ({
+  appointments,
+  editable = true,
+  deleteable = true,
+  showCase = false,
+  onEdit,
+  onDelete,
+  onShowDetail,
+  permissions
+}) => {
+
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -35,6 +46,16 @@ const AppointmentTable = ({ appointments, onEdit, onDelete, onShowDetail, permis
                   >
                     type
                   </th>
+                  {
+                    showCase && (
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Case related
+                      </th>
+                    )
+                  }
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -67,6 +88,20 @@ const AppointmentTable = ({ appointments, onEdit, onDelete, onShowDetail, permis
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{appointment.type}</div>
                       </td>
+                      {
+                        showCase && (
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm">
+                              <Link
+                                className="text-indigo-600 hover:text-indigo-700"
+                                href={route('caselaw.show', appointment.caselaw)}
+                              >
+                                {appointment.caselaw.code}
+                              </Link>
+                            </div>
+                          </td>
+                        )
+                      }
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex">
                         {
                           permissions.includes('view-appointment') && (
@@ -81,7 +116,7 @@ const AppointmentTable = ({ appointments, onEdit, onDelete, onShowDetail, permis
                           )
                         }
                         {
-                          permissions.includes('edit-appointment') && (
+                          editable && permissions.includes('edit-appointment') && (
                             <div className='ml-2'>
                               <CircularButton
                                 onClick={() => onEdit(appointment)}
@@ -93,7 +128,7 @@ const AppointmentTable = ({ appointments, onEdit, onDelete, onShowDetail, permis
                           )
                         }
                         {
-                          permissions.includes('delete-appointment') && (
+                          deleteable && permissions.includes('delete-appointment') && (
                             <div className='ml-2'>
                               <CircularButton
                                 className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-700'

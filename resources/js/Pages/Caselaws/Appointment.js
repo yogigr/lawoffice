@@ -20,7 +20,7 @@ const Appointment = (props) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
 
-  const getCaselaws = () => {
+  const getAppointments = () => {
     Inertia.visit(route('caselaw.appointment.index', caselaw), {
       method: 'get',
       only: ['appointments'],
@@ -33,7 +33,7 @@ const Appointment = (props) => {
   }
   useEffect(() => {
     if (inertia) {
-      getCaselaws();
+      getAppointments();
     }
   }, [pageNum]);
 

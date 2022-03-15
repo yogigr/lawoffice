@@ -37,15 +37,16 @@ const Navigation = ({ className, permissions, desktop = true }) => {
     },
     {
       name: "Appointments",
-      href: "#", icon: CalendarIcon,
-      current: false,
+      href: route('appointment.index'),
+      icon: CalendarIcon,
+      current: route().current('appointment.index'),
       show: permissions.includes('view-appointment')
     },
     {
       name: "Invoices",
-      href: "#",
+      href: route('invoice.index'),
       icon: CalculatorIcon,
-      current: false,
+      current: route().current('invoice.index'),
       show: permissions.includes('view-invoice')
     },
     {

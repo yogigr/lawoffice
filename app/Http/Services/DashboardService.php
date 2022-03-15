@@ -9,9 +9,17 @@ use App\Models\Service;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Services\AppointmentService;
 
 class DashboardService
 {
+    protected $appointmentService;
+
+    public function __construct()
+    {
+        $this->appointmentService = new AppointmentService();
+    }
+
     public function getActiveCaselawCount()
     {
         $user = Auth::user();
@@ -38,18 +46,7 @@ class DashboardService
 
         $nextAppointmentCount = false;
         if (Gate::allows('view-appointment')) {
-            $nextAppointmentCount = Appointment::where(function($query) use ($user) {
-                $query->whereHas('caselaw', function($caselawQuery) use ($user) {
-                    $caselawQuery->where('status_id', 2);
-                    if ($user->role_id == 2) {
-                        $caselawQuery->whereHas('users', function($usersQuery) use ($user) {
-                            $usersQuery->where('user_id', $user->id);
-                        }); 
-                    } elseif ($user->role_id == 3) {
-                        $caselawQuery->where('client_id', $user->id);
-                    }
-                })->where('date', '>=', today())->where('time', '>=', now()->format('H:i:s'));
-            })->count();
+            $nextAppointmentCount = $this->appointmentService->getAppointments($user)->count();
         }
         return $nextAppointmentCount;
     }
