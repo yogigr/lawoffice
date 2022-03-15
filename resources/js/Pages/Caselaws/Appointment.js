@@ -6,9 +6,9 @@ import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
 import React, { useEffect, useState } from 'react';
-import AppointmentForm from './AppointmentForm';
-import AppointmentShow from './AppointmentShow';
-import AppointmentTable from './AppointmentTable';
+import AppointmentForm from '../Appointment/AppointmentForm';
+import AppointmentShow from '../Appointment/AppointmentShow';
+import AppointmentTable from '../Appointment/AppointmentTable';
 import CaselawTabs from './CaselawTabs';
 
 const Appointment = (props) => {

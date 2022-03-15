@@ -6,10 +6,10 @@ import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
 import React, { useEffect, useState } from 'react';
+import InvoiceForm from '../Invoice/InvoiceForm';
+import InvoiceShow from '../Invoice/InvoiceShow';
+import InvoiceTable from '../Invoice/InvoiceTable';
 import CaselawTabs from './CaselawTabs';
-import InvoiceForm from './InvoiceForm';
-import InvoiceShow from './InvoiceShow';
-import InvoiceTable from './InvoiceTable';
 
 const Invoice = (props) => {
   const { caselaw, invoices, auth } = props;

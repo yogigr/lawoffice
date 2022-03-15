@@ -1,6 +1,7 @@
 <?php
 
 use Inertia\Inertia;
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\CaselawController;
@@ -30,9 +31,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     Route::get('/caselaw/{caselaw}/lawyer', [CaselawController::Class, 'lawyer'])->name('caselaw.lawyer.index');
     Route::post('/caselaw/{caselaw}/lawyer', [CaselawController::class, 'lawyerStore'])->name('caselaw.lawyer.store');
