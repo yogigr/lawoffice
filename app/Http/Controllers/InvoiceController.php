@@ -2,19 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\InvoiceRequest;
 use App\Http\Services\InvoiceService;
+use App\Http\Resources\InvoiceResource;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index(InvoiceService $service)
     {
         if (!Gate::allows('view-invoice')) {
             abort(403);
         }
+
+        return Inertia::render('Invoice/Index', [
+            'invoices' => InvoiceResource::collection($service->getInvoices(Auth::user()))
+        ]);
     }
 
     public function store(InvoiceRequest $request, InvoiceService $service)

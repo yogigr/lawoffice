@@ -976,6 +976,12 @@ select {
 .flex-col {
   flex-direction: column;
 }
+.place-content-end {
+  place-content: end;
+}
+.place-items-end {
+  place-items: end;
+}
 .items-start {
   align-items: flex-start;
 }
@@ -1048,6 +1054,9 @@ select {
 .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-divide-opacity));
+}
+.place-self-end {
+  place-self: end;
 }
 .overflow-auto {
   overflow: auto;
@@ -2089,6 +2098,14 @@ select {
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .md\:place-content-end {
+    place-content: end;
   }
 
   .md\:border-t-0 {

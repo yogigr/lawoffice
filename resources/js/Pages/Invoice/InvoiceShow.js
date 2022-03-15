@@ -1,5 +1,5 @@
 import Badge from '@/Components/Badge';
-import Button from '@/Components/Button';
+import CircularButton from '@/Components/CircularButton';
 import DescriptionList from '@/Components/DescriptionList';
 import SlideOver from '@/Components/SlideOver';
 import { toCurrency } from '@/utils/helper';
@@ -14,18 +14,19 @@ const InvoiceShow = ({ open, onClose, invoice }) => {
       title="Invoice Detail"
       wide={true}
     >
-      <div className='grid grid-cols-4'>
-        <Button>
-          <DownloadIcon className='h-4 w-4' />
-          Pdf
-        </Button>
-      </div>
-
       {
         invoice && (
           <DescriptionList
             title={`Invoice ${invoice.code}`}
             lists={[
+              {
+                label: '',
+                value: (
+                  <CircularButton className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-200'>
+                    <DownloadIcon className='w-4 h-4' />
+                  </CircularButton>
+                )
+              },
               {
                 label: 'Number',
                 value: invoice.code

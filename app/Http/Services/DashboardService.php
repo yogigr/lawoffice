@@ -60,6 +60,7 @@ class DashboardService
             $unpaidInvoiceCount = Invoice::where(function($query) use ($user) {
                 $query->where('is_paid', false)
                 ->whereHas('caselaw', function($caselawQuery) use ($user) {
+                    $caselawQuery->where('status_id', 2);
                     if ($user->role_id == 2) {
                         $caselawQuery->whereHas('users', function($usersQuery) use ($user) {
                             $usersQuery->where('user_id', $user->id);

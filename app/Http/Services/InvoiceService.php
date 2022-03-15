@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\User;
 use App\Models\Caselaw;
 use App\Models\Invoice;
 use App\Classes\CodeGenerator;
@@ -14,6 +15,25 @@ class InvoiceService
     public function __construct()
     {
         $this->codeGenerator = new CodeGenerator();
+    }
+
+    public function getInvoices(User $user)
+    {
+        return Invoice::where(function($query) use ($user) {
+            if (request('code')) {
+                $query->where('code', 'like', '%' . request('code') . '%');
+            }
+            $query->whereHas('caselaw', function($caselawQuery) use ($user) {
+                $caselawQuery->where('status_id', 2);
+                if ($user->role_id == 2) {
+                    $caselawQuery->whereHas('users', function($usersQuery) use ($user) {
+                        $usersQuery->where('user_id', $user->id);
+                    }); 
+                } elseif ($user->role_id == 3) {
+                    $caselawQuery->where('client_id', $user->id);
+                }
+            });
+        })->orderBy('date', 'desc')->paginate(10);
     }
 
     public function getInvoicesWithCaselaw(Caselaw $caselaw)
