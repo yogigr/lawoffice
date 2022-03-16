@@ -8,7 +8,7 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { LoginIcon } from '@heroicons/react/outline';
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status, canResetPassword, canRegister }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: '',
     password: '',
@@ -81,6 +81,16 @@ export default function Login({ status, canResetPassword }) {
               className="ml-2 block text-sm text-gray-900"
               value="Ingat saya"
             />
+          </div>
+          <div className="text-sm">
+            {canRegister && (
+              <Link
+                href={route("register")}
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Belum register?
+              </Link>
+            )}
           </div>
           <div className="text-sm">
             {canResetPassword && (

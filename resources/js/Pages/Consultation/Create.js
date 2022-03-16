@@ -20,7 +20,9 @@ const Create = (props) => {
   const submit = (e) => {
     e.preventDefault();
     const url = '/consultation';
-    post(url)
+    post(url, {
+      onSuccess: () => reset()
+    })
   }
 
   useEffect(() => {

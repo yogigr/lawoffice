@@ -96,7 +96,7 @@ export default function Register() {
 
         <div className='mt-4'>
           <Link href={route('login')} className="underline text-sm text-indigo-600 hover:text-indigo-900">
-            Already registered?
+            Sudah pernah register?
           </Link>
         </div>
         <div className='mt-4'>
