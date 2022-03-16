@@ -19,9 +19,9 @@ class CreateCaselawsTable extends Migration
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('title')->unique();
-            $table->text('desc');
+            $table->text('desc')->nullable();
             $table->unsignedBigInteger('service_id')->nullable();
-            $table->unsignedBigInteger('status_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable()->default(1);
             $table->unsignedBigInteger('client_id')->nullable();
             $table->timestamps();
 

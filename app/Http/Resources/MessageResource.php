@@ -21,7 +21,7 @@ class MessageResource extends JsonResource
             'caselaw_id' => $this->caselaw_id,
             'created_at' => $this->created_at,
             'user' => $this->user,
-            'role' => $this->user->name ?? '',
+            'role' => $this->user->role->name ?? '',
         ];
     }
 }

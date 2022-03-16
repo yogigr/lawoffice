@@ -5,19 +5,11 @@ import {
   MenuAlt2Icon,
   XIcon,
 } from "@heroicons/react/outline";
-import { Head, Link } from "@inertiajs/inertia-react";
+import { Head } from "@inertiajs/inertia-react";
 import Navigation from "@/Components/Navigation";
 import ValidationErrors from "@/Components/ValidationErrors";
 import SuccessAlert from "@/Components/SuccessAlert";
-
-const userNavigation = [
-  { name: "Profile", href: "#", method: "get", as: "button" },
-  { name: "Sign out", href: route("logout"), method: "post", as: "button" },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import UserNavigation from "@/Components/UserNavigation";
 
 export default function Authenticated({ props, title, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -79,14 +71,16 @@ export default function Authenticated({ props, title, children }) {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4">
-                <h1
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                  alt="Workflow"
-                />
+                <a href={route('welcome')}>
+                  <img
+                    className="h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
+                    alt="Workflow"
+                  />
+                </a>
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                <Navigation className="px-2 space-y-1" desktop={false} permissions={auth.permissions} />
+                <Navigation className="px-2 space-y-1" desktop={false} permissions={auth.permissions} roleId={auth.user.role_id} />
               </div>
             </div>
           </Transition.Child>
@@ -102,14 +96,16 @@ export default function Authenticated({ props, title, children }) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                alt="Workflow"
-              />
+              <a href={route('welcome')}>
+                <img
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
+                  alt="Workflow"
+                />
+              </a>
             </div>
             <div className="mt-5 flex-1 flex flex-col">
-              <Navigation className="flex-1 px-2 space-y-1" permissions={auth.permissions} />
+              <Navigation className="flex-1 px-2 space-y-1" permissions={auth.permissions} roleId={auth.user.role_id} />
             </div>
           </div>
         </div>
@@ -154,37 +150,7 @@ export default function Authenticated({ props, title, children }) {
                     />
                   </Menu.Button>
                 </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
-                        {({ active }) => (
-                          <Link
-                            href={item.href}
-                            method={item.method}
-                            as={item.as}
-                            className={classNames(
-                              active
-                                ? "bg-gray-100"
-                                : "",
-                              "w-full text-left block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            {item.name}
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
+                <UserNavigation csrf_token={props.csrf_token} />
               </Menu>
             </div>
           </div>

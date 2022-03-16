@@ -4,11 +4,13 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\CaselawController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ConsultationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +23,12 @@ use App\Http\Controllers\AppointmentController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [FrontController::class, 'welcome'])->name('welcome');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
+
+    Route::resource('consultation', ConsultationController::class)->only(['create', 'store']);
 
     Route::get('/caselaw/{caselaw}/lawyer', [CaselawController::Class, 'lawyer'])->name('caselaw.lawyer.index');
     Route::post('/caselaw/{caselaw}/lawyer', [CaselawController::class, 'lawyerStore'])->name('caselaw.lawyer.store');

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    //consultaion
+    'create-consultation',
+    
     //case
     'view-caselaw',
     'create-caselaw',

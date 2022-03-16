@@ -2,6 +2,9 @@
 
 return [
     'permissions' => [
+        //consultaion
+        'create-consultation',
+
         //case
         'view-caselaw',
 

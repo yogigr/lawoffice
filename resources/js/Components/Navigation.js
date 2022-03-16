@@ -2,6 +2,7 @@ import React from 'react';
 import {
   CalculatorIcon,
   CalendarIcon,
+  ChatIcon,
   ClipboardListIcon,
   CogIcon,
   HomeIcon,
@@ -15,7 +16,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navigation = ({ className, permissions, desktop = true }) => {
+const Navigation = ({ className, permissions, roleId, desktop = true }) => {
   const navigation = [
     {
       name: "Dashboard",
@@ -23,6 +24,13 @@ const Navigation = ({ className, permissions, desktop = true }) => {
       icon: HomeIcon,
       current: route().current('dashboard'),
       show: true,
+    },
+    {
+      name: "Konsultasi",
+      href: route('consultation.create'),
+      icon: ChatIcon,
+      current: route().current('consultation.create'),
+      show: permissions.includes('create-consultation') && roleId === 3,
     },
     {
       name: "Cases",

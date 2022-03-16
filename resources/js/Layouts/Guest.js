@@ -1,6 +1,6 @@
 import React from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Head, Link } from '@inertiajs/inertia-react';
+import { Head } from '@inertiajs/inertia-react';
 import SuccessAlert from '@/Components/SuccessAlert';
 import ValidationErrors from '@/Components/ValidationErrors';
 
@@ -10,9 +10,9 @@ export default function Guest({ title, desc, status, errors, children }) {
       <Head title={title} />
       <div className="max-w-md w-full space-y-8">
         <div>
-          <Link href="/">
+          <a href="/">
             <ApplicationLogo className="mx-auto h-12 w-auto" />
-          </Link>
+          </a>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{title}</h2>
           {
             desc && (
