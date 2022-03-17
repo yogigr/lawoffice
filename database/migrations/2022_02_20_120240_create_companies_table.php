@@ -23,7 +23,7 @@ class CreateCompaniesTable extends Migration
             $table->string('email');
             $table->string('phone')->nullable();
             $table->text('address');
-            $table->string('meta_title')->nullable();
+            $table->string('meta_keywords')->nullable();
             $table->text('meta_desc')->nullable();
             $table->timestamps();
         });

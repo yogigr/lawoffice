@@ -22,7 +22,7 @@ class CompanyFactory extends Factory
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'meta_title' => $this->faker->words($nb = 6, $asText = true),
+            'meta_keywords' => $this->faker->words($nb = 6, $asText = true),
             'meta_desc' => $this->faker->text,
         ];
     }

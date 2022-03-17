@@ -18,7 +18,7 @@ class Company extends Model
         'email',
         'phone',
         'address',
-        'meta_title',
+        'meta_keywords',
         'meta_desc'
     ];
 
