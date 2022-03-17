@@ -66,9 +66,10 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
     },
     {
       name: "Users",
-      href: "#",
+      href: route('user.index'),
       icon: UsersIcon,
-      current: false,
+      current: route().current('user.index') || route().current('user.show')
+        || route().current('user.create') || route().current('user.edit'),
       show: permissions.includes('view-user')
     },
     {

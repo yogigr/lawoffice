@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Avatar;
+use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -48,6 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public $appends = ['picture'];
+
+    public $sortable = [
+        'id', 'name', 'email',
+    ];
 
     //relationship
     public function role()
@@ -93,5 +99,10 @@ class User extends Authenticatable implements MustVerifyEmail
                 return config('permissions');
                 break;
         }
+    }
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->date_of_birth)->age;
     }
 }

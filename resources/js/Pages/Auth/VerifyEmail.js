@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Button from '@/Components/Button';
 import Guest from '@/Layouts/Guest';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, useForm } from '@inertiajs/inertia-react';
 
-export default function VerifyEmail({ status }) {
+export default function VerifyEmail({ status, csrf_token }) {
   const { post, processing } = useForm();
+  const logoutForm = useRef(null);
 
   const submit = (e) => {
     e.preventDefault();
@@ -24,15 +25,13 @@ export default function VerifyEmail({ status }) {
           <Button processing={processing}>Resend Verification Email</Button>
         </div>
         <div className='mt-4 text-center'>
-          <Link
-            href={route('logout')}
-            method="post"
-            as="button"
-            className="underline text-sm text-indigo-600 hover:text-indigo-900"
-          >
-            Log Out
-          </Link>
+          <button onClick={() => logoutForm.current.submit()} type='button' className='underline text-sm text-indigo-600 hover:text-indigo-900'>
+            Logout
+          </button>
         </div>
+      </form>
+      <form ref={logoutForm} method="post" action={route('logout')}>
+        <input type="hidden" name="_token" value={csrf_token} />
       </form>
     </Guest>
   );

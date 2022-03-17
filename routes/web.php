@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\CaselawController;
 use App\Http\Controllers\InvoiceController;
@@ -45,6 +46,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/document/{document}/download', [DocumentController::class, 'download'])->name('document.download');
     Route::resource('/document', DocumentController::class)->only(['store', 'update', 'destroy']);
+
+    Route::resource('/user', UserController::class);
 });
 
 require __DIR__.'/auth.php';
