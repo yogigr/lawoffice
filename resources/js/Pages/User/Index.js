@@ -15,7 +15,7 @@ const Index = (props) => {
   const [params, setParams] = useState({
     role_id: '',
     search: '',
-    page: users.meta.current_page
+    page: 1
   });
   const handleChangeParams = (key, value) => {
     setParams({

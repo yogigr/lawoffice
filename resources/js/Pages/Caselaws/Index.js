@@ -6,47 +6,44 @@ import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
 import { Link } from '@inertiajs/inertia-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Table from './Table';
 
 const Index = (props) => {
   const { statuses, services, caselaws, auth } = props;
-  const [pageNum, setPageNum] = useState(1);
-  const [statusId, setStatusId] = useState("");
-  const [serviceId, setServiceId] = useState("");
-  const [code, setCode] = useState("");
-  const [inertia, setInertia] = useState(props.inertia);
+  const isMounted = useRef(false);
+  const [params, setParams] = useState({
+    status_id: '',
+    service_id: '',
+    code: '',
+    page: 1,
+  });
+
+  const handleChangeParams = (key, value) => {
+    setParams({
+      ...params,
+      [key]: value,
+      page: key == 'page' ? value : 1
+    })
+  }
 
   const getCaselaws = () => {
     Inertia.visit(route('caselaw.index'), {
       method: 'get',
       only: ['caselaws'],
-      data: {
-        status_id: statusId,
-        service_id: serviceId,
-        code: code,
-        page: pageNum,
-      },
+      data: params,
       preserveState: true,
       preserveScroll: true,
     });
   }
 
   useEffect(() => {
-    if (inertia) {
+    if (isMounted.current) {
       getCaselaws();
+    } else {
+      isMounted.current = true;
     }
-  }, [pageNum, statusId, serviceId, code]);
-
-  useEffect(() => {
-    setPageNum(1);
-  }, [statusId, serviceId, code]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
+  }, [params]);
 
   return (
     <Authenticated props={props} title="Cases">
@@ -76,8 +73,8 @@ const Index = (props) => {
                   options={statuses}
                   label="Status"
                   className="w-full"
-                  selected={statusId}
-                  onChange={(v) => setStatusId(v)}
+                  selected={params.status_id}
+                  onChange={(v) => handleChangeParams('status_id', v)}
                 />
               </div>
               <div className="mt-2 sm:mt-0 sm:mr-2">
@@ -85,15 +82,15 @@ const Index = (props) => {
                   options={services}
                   label="Service"
                   className="w-full"
-                  selected={serviceId}
-                  onChange={(v) => setServiceId(v)}
+                  selected={params.service_id}
+                  onChange={(v) => handleChangeParams('service_id', v)}
                 />
               </div>
               <div className="mt-2 sm:mt-0">
                 <Input
                   label="Pencarian"
-                  value={code}
-                  handleChange={(e) => setCode(e.target.value)}
+                  value={params.code}
+                  handleChange={(e) => handleChangeParams('code', e.target.value)}
                   placeholder="Cari kode case"
                 />
               </div>
@@ -114,7 +111,7 @@ const Index = (props) => {
             <div className="px-4 py-4 sm:px-6">
               <Pagination
                 meta={caselaws.meta}
-                onChangePage={(page) => setPageNum(page)}
+                onChangePage={(page) => handleChangeParams('page', page)}
               />
             </div>
           )

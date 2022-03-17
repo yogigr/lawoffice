@@ -40,9 +40,7 @@ class CaselawController extends Controller
         return Inertia::render('Caselaws/Index', [
             'statuses' => $support['statuses'],
             'services' => $support['services'],
-            'caselaws' => request()->inertia() ? Inertia::lazy(function() use ($caselaws) {
-                return CaselawResource::collection($caselaws);
-            }) : CaselawResource::collection($caselaws),
+            'caselaws' => CaselawResource::collection($caselaws),
         ]);
     }
 

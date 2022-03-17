@@ -3,44 +3,43 @@ import Input from '@/Components/Input';
 import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { Inertia } from '@inertiajs/inertia';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InvoiceShow from '../Invoice/InvoiceShow';
 import InvoiceTable from './InvoiceTable';
 
 const Index = (props) => {
   const { invoices, auth } = props;
-  const [pageNum, setPageNum] = useState(1);
-  const [code, setCode] = useState("");
-  const [inertia, setInertia] = useState(props.inertia);
+  const isMounted = useRef(false);
+  const [params, setParams] = useState({
+    code: '',
+    page: 1
+  });
   const [selectedInvoice, setSelectedInvoice] = useState(null);
+
+  const handleChangeParams = (key, value) => {
+    setParams({
+      ...params,
+      [key]: value,
+      page: key === 'page' ? value : 1
+    });
+  }
 
   const getInvoices = () => {
     Inertia.visit(route('invoice.index'), {
       method: 'get',
       only: ['invoices'],
-      data: {
-        page: pageNum,
-        code: code,
-      },
+      data: params,
       preserveState: true,
       preserveScroll: true,
     });
   }
   useEffect(() => {
-    if (inertia) {
+    if (isMounted.current) {
       getInvoices();
+    } else {
+      isMounted.current = true;
     }
-  }, [pageNum, code]);
-
-  useEffect(() => {
-    setPageNum(1);
-  }, [code]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
+  }, [params]);
 
   return (
     <Authenticated props={props} title="Invoices">
@@ -54,11 +53,11 @@ const Index = (props) => {
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5'>
             <Input
               name="code"
-              value={code}
+              value={params.code}
               showlabel={false}
               placeholder="Cari nomor invoice"
               className="place-self-end"
-              handleChange={e => setCode(e.target.value)}
+              handleChange={e => handleChangeParams('code', e.target.value)}
             />
           </div>
         </div>
@@ -83,7 +82,7 @@ const Index = (props) => {
             <div className="px-4 py-4 sm:px-6">
               <Pagination
                 meta={invoices.meta}
-                onChangePage={(page) => setPageNum(page)}
+                onChangePage={(page) => handleChangeParams('page', page)}
               />
             </div>
           )

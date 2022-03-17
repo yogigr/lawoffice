@@ -58,7 +58,9 @@ const InvoiceForm = ({
   const submit = (e) => {
     e.preventDefault();
     const url = invoice ? `/invoice/${invoice.id}` : "/invoice";
-    post(url);
+    post(url, {
+      onSuccess: () => reset()
+    });
     onClose();
   }
 

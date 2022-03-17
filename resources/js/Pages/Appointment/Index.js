@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import AppointmentShow from './AppointmentShow';
 import AppointmentTable from './AppointmentTable';
@@ -8,8 +8,8 @@ import { Inertia } from '@inertiajs/inertia';
 
 const Index = (props) => {
   const { appointments, auth } = props;
+  const isMounted = useRef(false);
   const [pageNum, setPageNum] = useState(1);
-  const [inertia, setInertia] = useState(props.inertia);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   const getAppointments = () => {
@@ -24,16 +24,12 @@ const Index = (props) => {
     });
   }
   useEffect(() => {
-    if (inertia) {
-      getAppointments();
+    if (isMounted.current) {
+      getAppointments(); 
+    } else {
+      isMounted.current = true;
     }
   }, [pageNum]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
 
   return (
     <Authenticated props={props} title="Appointment">

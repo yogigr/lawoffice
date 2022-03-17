@@ -4,7 +4,7 @@ import EmptyState from '@/Components/EmptyState';
 import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { Inertia } from '@inertiajs/inertia';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CaselawTabs from './CaselawTabs';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
@@ -12,8 +12,8 @@ import MessageList from './MessageList';
 const Message = (props) => {
   const { caselaw, messages, auth } = props;
   const { user } = props.auth;
+  const isMounted = useRef(false);
   const [pageNum, setPageNum] = useState(1);
-  const [inertia, setInertia] = useState(props.inertia);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -29,16 +29,12 @@ const Message = (props) => {
     });
   }
   useEffect(() => {
-    if (inertia) {
+    if (isMounted.current) {
       getMessages();
+    } else {
+      isMounted.current = true;
     }
   }, [pageNum]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
 
   return (
     <Authenticated props={props} title={`MESSAGE ${caselaw.code}`}>

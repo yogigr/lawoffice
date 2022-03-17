@@ -5,7 +5,7 @@ import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CaselawTabs from './CaselawTabs';
 import DocumentForm from './DocumentForm';
 import DocumentShow from './DocumentShow';
@@ -13,9 +13,9 @@ import DocumentTable from './DocumentTable';
 
 const Document = (props) => {
   const { caselaw, documents, auth } = props;
+  const isMounted = useRef(false);
   const [formOpen, setFormOpen] = useState(false)
   const [pageNum, setPageNum] = useState(1);
-  const [inertia, setInertia] = useState(props.inertia);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
@@ -32,16 +32,12 @@ const Document = (props) => {
     });
   }
   useEffect(() => {
-    if (inertia) {
+    if (isMounted.current) {
       getDocuments();
+    } else {
+      isMounted.current = true;
     }
   }, [pageNum]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
 
   return (
     <Authenticated props={props} title={`DOCUMENTS ${caselaw.code}`}>

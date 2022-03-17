@@ -5,7 +5,7 @@ import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppointmentForm from '../Appointment/AppointmentForm';
 import AppointmentShow from '../Appointment/AppointmentShow';
 import AppointmentTable from '../Appointment/AppointmentTable';
@@ -13,9 +13,9 @@ import CaselawTabs from './CaselawTabs';
 
 const Appointment = (props) => {
   const { caselaw, appointments, auth } = props;
+  const isMounted = useRef(false);
   const [formOpen, setFormOpen] = useState(false)
   const [pageNum, setPageNum] = useState(1);
-  const [inertia, setInertia] = useState(props.inertia);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
@@ -32,16 +32,12 @@ const Appointment = (props) => {
     });
   }
   useEffect(() => {
-    if (inertia) {
-      getAppointments();
+    if (isMounted.current) {
+      getAppointments(); 
+    } else {
+      isMounted.current = true;
     }
   }, [pageNum]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
 
   return (
     <Authenticated props={props} title={`APPOINTMENT ${caselaw.code}`}>

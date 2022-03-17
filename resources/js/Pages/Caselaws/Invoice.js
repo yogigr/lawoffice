@@ -5,7 +5,7 @@ import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { PlusIcon } from '@heroicons/react/outline';
 import { Inertia } from '@inertiajs/inertia';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import InvoiceForm from '../Invoice/InvoiceForm';
 import InvoiceShow from '../Invoice/InvoiceShow';
 import InvoiceTable from '../Invoice/InvoiceTable';
@@ -13,9 +13,9 @@ import CaselawTabs from './CaselawTabs';
 
 const Invoice = (props) => {
   const { caselaw, invoices, auth } = props;
+  const isMounted = useRef(false);
   const [formOpen, setFormOpen] = useState(false)
   const [pageNum, setPageNum] = useState(1);
-  const [inertia, setInertia] = useState(props.inertia);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
@@ -32,16 +32,12 @@ const Invoice = (props) => {
     });
   }
   useEffect(() => {
-    if (inertia) {
+    if (isMounted.current) {
       getInvoices();
+    } else {
+      isMounted.current = true;
     }
   }, [pageNum]);
-
-  useEffect(() => {
-    if (!inertia) {
-      setInertia(true);
-    }
-  }, []);
 
   return (
     <Authenticated props={props} title={`INVOICE ${caselaw.code}`}>

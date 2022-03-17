@@ -27,7 +27,9 @@ const AppointmentForm = ({
   const submit = (e) => {
     e.preventDefault();
     const url = appointment ? `/appointment/${appointment.id}` : "/appointment";
-    post(url)
+    post(url, {
+      onSuccess: () => reset()
+    })
     onClose()
   }
 
