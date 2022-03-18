@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/inertia-react';
 import React, { Fragment } from 'react';
 
 const userNavigation = [
-  { name: "Profile", href: "#", method: "get", as: "button", link: true },
+  { name: "Profile", href: route('profile.index'), method: "get", as: "button", link: true },
   { name: "Sign out", href: route("logout"), method: "post", as: "button", link: false },
 ];
 

@@ -21,6 +21,7 @@ class UserRequest extends FormRequest
             'email' => 'required|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required',
+            'date_of_birth' => 'nullable|date',
         ];
 
         if ($this->isMethod('patch')) {
@@ -41,6 +42,7 @@ class UserRequest extends FormRequest
             'password.min' => 'Password minimal 8 karakter',
             'password.confirmed' => 'Konfirmasi password tidak cocok',
             'role_id.required' => 'Role harus dipilih',
+            'date_of_birth.date' => 'Format tanggal lahir salah'
         ];
     }
 }

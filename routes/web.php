@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\CaselawController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ConsultationController;
@@ -48,6 +49,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/document', DocumentController::class)->only(['store', 'update', 'destroy']);
 
     Route::resource('/user', UserController::class);
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/address', [ProfileController::class, 'addressForm'])->name('profile.address_form');
+    Route::get('/profile/change-password', [ProfileController::class, 'changePasswordForm'])->name('profile.change_password_form');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.update_address');
+    Route::patch('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
 });
 
 require __DIR__.'/auth.php';

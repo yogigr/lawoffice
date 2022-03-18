@@ -6,6 +6,7 @@ use Avatar;
 use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
