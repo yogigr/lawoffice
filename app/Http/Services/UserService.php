@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Classes\Uploader;
 use App\Http\Requests\UserRequest;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
@@ -41,6 +42,7 @@ class UserService
             if (request('search')) {
                 $query->where('name', 'like', '%' . request('search') . '%');
             }
+            $query->where('id', '!=', Auth::id());
         });
 
         $users = $users->sortable([
