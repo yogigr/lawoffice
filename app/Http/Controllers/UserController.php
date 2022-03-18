@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Services\UserService;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function index(UserService $service)
     {
+        if (!Gate::allows('view-user')) {
+            abort(403);
+        }
+
         return Inertia::render('User/Index', [
             'roles' => $service->getSupportData()['roles'],
             'users' => UserResource::collection($service->getUsers())
@@ -21,6 +26,10 @@ class UserController extends Controller
 
     public function create(UserService $service)
     {
+        if (!Gate::allows('create-user')) {
+            abort(403);
+        }
+
         return Inertia::render('User/Create', [
             'roles' => $service->getSupportData()['roles']
         ]);
@@ -35,6 +44,10 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        if (!Gate::allows('view-user')) {
+            abort(403);
+        }
+
         return Inertia::render('User/Show', [
             'user' => new UserResource($user)
         ]);
@@ -42,6 +55,10 @@ class UserController extends Controller
 
     public function edit(UserService $service, User $user)
     {
+        if (!Gate::allows('edit-user')) {
+            abort(403);
+        }
+
         return Inertia::render('User/Edit', [
             'roles' => $service->getSupportData()['roles'],
             'user' => new UserResource($user)
@@ -64,6 +81,10 @@ class UserController extends Controller
 
     public function address(User $user)
     {
+        if (!Gate::allows('view-user')) {
+            abort(403);
+        }
+        
         return Inertia::render('User/Address', [
             'address' => $user->address,
             'user' => new UserResource($user)
