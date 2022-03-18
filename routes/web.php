@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/document/{document}/download', [DocumentController::class, 'download'])->name('document.download');
     Route::resource('/document', DocumentController::class)->only(['store', 'update', 'destroy']);
 
+    Route::get('/user/{user}/address', [UserController::Class, 'address'])->name('user.address');
     Route::resource('/user', UserController::class);
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

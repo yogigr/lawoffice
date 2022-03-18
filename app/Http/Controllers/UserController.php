@@ -61,4 +61,12 @@ class UserController extends Controller
         return redirect()->route('user.index')
         ->with('status', 'User berhasil dihapus');
     }
+
+    public function address(User $user)
+    {
+        return Inertia::render('User/Address', [
+            'address' => $user->address,
+            'user' => new UserResource($user)
+        ]);
+    }
 }
