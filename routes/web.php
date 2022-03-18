@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CaselawController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessageController;
@@ -57,6 +58,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.update_address');
     Route::patch('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change_password');
+
+    Route::get('config', [ConfigController::class, 'index'])->name('config.index');
+    Route::patch('config', [ConfigController::class, 'update'])->name('config.update');
 });
 
 require __DIR__.'/auth.php';

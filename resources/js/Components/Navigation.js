@@ -82,9 +82,9 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
     },
     {
       name: "Settings",
-      href: "#",
+      href: route('config.index'),
       icon: CogIcon,
-      current: false,
+      current: route().current('config.index'),
       show: permissions.includes('view-setting')
     },
   ];
