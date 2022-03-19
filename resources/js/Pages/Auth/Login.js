@@ -8,7 +8,7 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { LoginIcon } from '@heroicons/react/outline';
 
-export default function Login({ status, canResetPassword, canRegister }) {
+export default function Login({ status, canResetPassword, canRegister, company }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: '',
     password: '',
@@ -35,7 +35,7 @@ export default function Login({ status, canResetPassword, canRegister }) {
   };
 
   return (
-    <Guest title="Login" desc="Silahkan login untuk memulai aplikasi" status={status} errors={errors}>
+    <Guest title="Login" desc="Silahkan login untuk memulai aplikasi" status={status} errors={errors} company={company}>
       <form className='mt-8 space-y-6' onSubmit={submit}>
         <div className="rounded-md shadow-sm -space-y-px">
           <div>

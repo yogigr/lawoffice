@@ -3,7 +3,7 @@ import Button from '@/Components/Button';
 import Guest from '@/Layouts/Guest';
 import { Head, useForm } from '@inertiajs/inertia-react';
 
-export default function VerifyEmail({ status, csrf_token }) {
+export default function VerifyEmail({ status, csrf_token, company }) {
   const { post, processing } = useForm();
   const logoutForm = useRef(null);
 
@@ -14,7 +14,7 @@ export default function VerifyEmail({ status, csrf_token }) {
   };
 
   return (
-    <Guest title="Email verification" desc="Silahkan check inbox/spam email anda dan verifikasi" status={status}>
+    <Guest title="Email verification" desc="Silahkan check inbox/spam email anda dan verifikasi" status={status} company={company}>
       <div className="mb-4 text-sm text-gray-600">
         Thanks for signing up! Before getting started, could you verify your email address by clicking on the
         link we just emailed to you? If you didn't receive the email, we will gladly send you another.

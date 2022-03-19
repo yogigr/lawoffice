@@ -4,14 +4,14 @@ import { Head } from '@inertiajs/inertia-react';
 import SuccessAlert from '@/Components/SuccessAlert';
 import ValidationErrors from '@/Components/ValidationErrors';
 
-export default function Guest({ title, desc, status, errors, children }) {
+export default function Guest({ title, desc, status, company, errors, children }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Head title={title} />
       <div className="max-w-md w-full space-y-8">
         <div>
           <a href="/">
-            <ApplicationLogo className="mx-auto h-12 w-auto" />
+            <ApplicationLogo company={company} className="mx-auto h-12 w-auto" />
           </a>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{title}</h2>
           {

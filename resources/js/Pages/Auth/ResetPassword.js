@@ -7,7 +7,7 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, useForm } from '@inertiajs/inertia-react';
 import { LockClosedIcon, LockOpenIcon, MailIcon } from '@heroicons/react/outline';
 
-export default function ResetPassword({ token, email }) {
+export default function ResetPassword({ token, email, company }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     token: token,
     email: email,
@@ -32,7 +32,7 @@ export default function ResetPassword({ token, email }) {
   };
 
   return (
-    <Guest title="Reset Password" desc="Silahkan isi Password baru dan Konsirmasi password baru untuk me-reset password" errors={errors}>
+    <Guest title="Reset Password" desc="Silahkan isi Password baru dan Konsirmasi password baru untuk me-reset password" errors={errors} company={company}>
       <form onSubmit={submit}>
         <div>
           <Label forInput="email" value="Email" className="sr-only" />

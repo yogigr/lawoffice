@@ -6,7 +6,7 @@ import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
-export default function Register() {
+export default function Register({ company }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
@@ -31,7 +31,7 @@ export default function Register() {
   };
 
   return (
-    <Guest title="Register" desc="Silahkan isi kolom dibawah untuk mendaftar" errors={errors}>
+    <Guest title="Register" desc="Silahkan isi kolom dibawah untuk mendaftar" errors={errors} company={company}>
 
       <form onSubmit={submit}>
         <div>

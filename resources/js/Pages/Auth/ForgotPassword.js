@@ -7,7 +7,7 @@ import { Head, useForm } from '@inertiajs/inertia-react';
 import { LockClosedIcon, MailIcon } from '@heroicons/react/outline';
 import Label from '@/Components/Label';
 
-export default function ForgotPassword({ status }) {
+export default function ForgotPassword({ status, company }) {
   const { data, setData, post, processing, errors } = useForm({
     email: '',
   });
@@ -23,7 +23,7 @@ export default function ForgotPassword({ status }) {
   };
 
   return (
-    <Guest title="Forgot Password" desc="Silahkan isi email terdaftar anda" status={status} errors={errors}>
+    <Guest title="Forgot Password" desc="Silahkan isi email terdaftar anda" status={status} errors={errors} company={company}>
       <form className="mt-8 space-y-6" onSubmit={submit}>
         <div>
           <Label forInput="email" value="Email" className="sr-only" />

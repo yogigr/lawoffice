@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function ApplicationLogo({ className }) {
+export default function ApplicationLogo({ company, className }) {
   return (
     <img
       className={className}
-      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-      alt="Workflow"
+      src={company ? company.logo : ''}
+      alt={company ? company.name : ''}
     />
   );
 }
