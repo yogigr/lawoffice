@@ -1,19 +1,16 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div id="practices" class="bg-indigo-700">
   <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
-    <h2 class="text-3xl font-extrabold text-white tracking-tight">
-      Practice Areas
+    <h2 class="text-4xl font-extrabold text-white tracking-tight">
+      PRACTICE AREAS
     </h2>
-    <p class="mt-4 max-w-3xl text-lg text-indigo-200">
-      Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit aliquam sit nisl euismod mattis in.
-    </p>
     <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
       @foreach($services as $service)
       <div class="{{ $loop->index < 4 ? '' : 'hidden hidden-practice' }}">
         <div>
-          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
+          <span class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-100">
             <!-- Heroicon name: outline/check -->
-            <svg class="absolute h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <svg class="absolute h-6 w-6 text-indigo-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
           </span>

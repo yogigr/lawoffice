@@ -40,7 +40,6 @@
             </svg>
           </div>
           <h3 class="text-lg font-medium text-white">CONTACT INFORMATION</h3>
-          <p class="mt-6 text-base text-indigo-50 max-w-3xl">Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.</p>
           <dl class="mt-8 space-y-6">
             <dt><span class="sr-only">Phone number</span></dt>
             <dd class="flex text-base text-indigo-50">
@@ -57,6 +56,15 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <span class="ml-3">{{ $company->email }}</span>
+            </dd>
+            <dt><span class="sr-only">Address</span></dt>
+            <dd class="flex text-base text-indigo-50">
+              <!-- Heroicon name: outline/phone -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="flex-shrink-0 w-6 h-6" viewBox="0 0 16 16">
+                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              <span class="ml-3">{!! nl2br(e($company->address)) !!}</span>
             </dd>
           </dl>
           <ul role="list" class="mt-8 flex space-x-12">
@@ -90,7 +98,7 @@
         <!-- Contact form -->
         <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
           <h3 class="text-lg font-medium text-gray-900">Send us a message</h3>
-          <form class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+          <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
               <label for="first-name" class="block text-sm font-medium text-gray-900">First name</label>
               <div class="mt-1">
@@ -138,7 +146,7 @@
                 Submit
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

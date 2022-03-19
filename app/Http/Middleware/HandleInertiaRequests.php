@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Http\Services\CompanyService;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,8 +35,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        $companyService = new CompanyService();
         return array_merge(parent::share($request), [
             'appName' => config('app.name'),
+            'company' => $companyService->getCompany(),
             'auth' => [
                 'user' => $request->user(),
                 'permissions' => $request->user() ? $request->user()->permissions : [],
