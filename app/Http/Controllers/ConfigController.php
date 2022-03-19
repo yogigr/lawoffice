@@ -6,11 +6,16 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Requests\ConfigRequest;
 use App\Http\Services\ConfigService;
+use Illuminate\Support\Facades\Gate;
 
 class ConfigController extends Controller
 {
     public function index(ConfigService $service)
     {
+        if (!Gate::allows('edit-setting')) {
+            abort(403);
+        }
+        
         return Inertia::render('Setting/Config', [
             'config' => $service->getConfig()
         ]);

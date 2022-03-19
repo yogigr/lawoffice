@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Avatar;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Company extends Model
 {
@@ -26,5 +28,15 @@ class Company extends Model
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    //custom
+    public function getLogoAttribute()
+    {
+        if ($this->image && Storage::disk('image')->exists($this->image->filename)) {
+            return asset('storage/image/' . $this->image->filename);
+        }
+
+        return Avatar::create($this->name)->toBase64();
     }
 }

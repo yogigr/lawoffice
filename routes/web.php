@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\CaselawController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -61,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('config', [ConfigController::class, 'index'])->name('config.index');
     Route::patch('config', [ConfigController::class, 'update'])->name('config.update');
+
+    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
+    Route::patch('company', [CompanyController::class, 'update'])->name('company.update');
 });
 
 require __DIR__.'/auth.php';

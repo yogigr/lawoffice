@@ -6,16 +6,16 @@ const SettingTabs = () => {
     <Tabs
       tabs={
         [
-          { 
-            name: 'CONFIG', 
-            href: route('config.index'), 
-            current: route().current('config.index'),
-            show: true 
+          {
+            name: 'COMPANY',
+            href: route('company.index'),
+            current: route().current('company.index'),
+            show: true
           },
-          { 
-            name: 'COMPANY', 
-            href: '#', 
-            current: false, 
+          {
+            name: 'SYSTEM',
+            href: route('config.index'),
+            current: route().current('config.index'),
             show: true
           }
         ]

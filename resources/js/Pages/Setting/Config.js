@@ -19,7 +19,7 @@ const Config = (props) => {
   }
 
   return (
-    <Authenticated props={props} title="Config">
+    <Authenticated props={props} title="System setting">
       <SettingTabs />
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
         <div className="px-4 py-5 sm:p-6">
