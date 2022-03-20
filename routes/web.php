@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ConfigController;
@@ -74,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('notification/delete-all', [NotificationController::class, 'destroy'])->name('notification.destroy');
 
     Route::resource('/service', ServiceController::class)->except(['show']);
+    Route::resource('/bank', BankController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';

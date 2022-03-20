@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             CompanySeeder::class,
             BlogSeeder::class,
-            CaselawSeeder::class
+            BankSeeder::class
+            //CaselawSeeder::class
         ]);
     }
 }

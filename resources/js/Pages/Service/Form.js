@@ -5,7 +5,6 @@ import { useForm } from '@inertiajs/inertia-react';
 import React, { useEffect } from 'react';
 
 const Form = ({ props, title, desc }) => {
-  const { roles } = props;
   const service = props.service ? props.service : null;
 
   let formData = {

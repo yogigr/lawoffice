@@ -84,7 +84,9 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
       name: "Settings",
       href: route('company.index'),
       icon: CogIcon,
-      current: route().current('config.index') || route().current('company.index'),
+      current: route().current('config.index') || route().current('company.index')
+          || route().current('bank.index') || route().current('bank.create')
+          || route().current('bank.edit'),
       show: permissions.includes('view-setting')
     },
   ];

@@ -13,6 +13,12 @@ const SettingTabs = () => {
             show: true
           },
           {
+            name: 'BANK',
+            href: route('bank.index'),
+            current: route().current('bank.index') || route().current('bank.create') || route().current('bank.edit'),
+            show: true
+          },
+          {
             name: 'SYSTEM',
             href: route('config.index'),
             current: route().current('config.index'),
