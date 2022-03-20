@@ -12,6 +12,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ConsultationController;
@@ -71,6 +72,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('notification/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notification.mark_as_read');
     Route::patch('notification/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notification.mark_all_as_read');
     Route::delete('notification/delete-all', [NotificationController::class, 'destroy'])->name('notification.destroy');
+
+    Route::resource('/service', ServiceController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';

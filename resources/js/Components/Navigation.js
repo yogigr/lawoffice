@@ -59,9 +59,9 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
     },
     {
       name: "Services",
-      href: "#",
+      href: route('service.index'),
       icon: ViewGridIcon,
-      current: false,
+      current: route().current('service.index') || route().current('service.create') || route().current('service.edit'),
       show: permissions.includes('view-service')
     },
     {
