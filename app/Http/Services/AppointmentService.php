@@ -31,7 +31,7 @@ class AppointmentService
                 } elseif ($user->role_id == 3) {
                     $caselawQuery->where('client_id', $user->id);
                 }
-            })->where('date', '>=', today())->where('time', '>=', now()->format('H:i:s'));
+            })->where('date', '>=', today());
         });
 
         return $appointments;
