@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Caselaw;
 use App\Classes\CodeGenerator;
+use App\Events\CaselawCreated;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ConsultationRequest;
 
@@ -26,6 +27,8 @@ class ConsultationService
             'title' => 'Case ' . $code, 
             'client_id' => Auth::id()
         ]);
+
+        CaselawCreated::dispatch($caselaw);
 
         $caselaw->messages()->create([
             'text' => $request->input('consultation_text'), 

@@ -8,6 +8,7 @@ use App\Models\Caselaw;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Classes\CodeGenerator;
+use App\Notifications\LawyerAdded;
 use App\Http\Requests\CaselawRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -145,10 +146,30 @@ class CaselawService
         ])->validate();
 
         $caselaw->users()->attach($request->input('user_id'));
+        
+        // notif
+        User::find($request->input('user_id'))->notify(
+            (new LawyerAdded($caselaw))
+            ->delay(now()->addMinutes(config('notifications.delay_in_minutes')))
+        );
     }
 
     public function lawyerDestroy(Caselaw $caselaw, User $lawyer)
     {
         $caselaw->users()->detach($lawyer->id);
+    }
+
+    public function getRelatedUsers(Caselaw $caselaw, $withAdmin = false)
+    {
+        return User::where(function($query) use ($caselaw, $withAdmin) {
+            if ($withAdmin) {
+                $query->where('role_id', 1);
+            }
+            $query->orWhereHas('caselaws', function($subQuery) use ($caselaw) {
+                $subQuery->where('caselaw_id', $caselaw->id);
+            })->orWhereHas('cases', function($subQuery) use ($caselaw) {
+                $subQuery->where('id', $caselaw->id);
+            });
+        })->get();
     }
 }

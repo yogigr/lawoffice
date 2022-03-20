@@ -5,6 +5,9 @@ namespace App\Http\Services;
 use App\Models\Caselaw;
 use App\Models\Message;
 use App\Http\Requests\MessageRequest;
+use App\Http\Services\CaselawService;
+use App\Notifications\NewMessageCreated;
+use Illuminate\Support\Facades\Notification;
 
 class MessageService
 {
@@ -20,6 +23,13 @@ class MessageService
             'user_id' => $request->input('user_id'), 
             'caselaw_id'=> $request->input('caselaw_id')
         ]);
+
+        //notif
+        Notification::send(
+            (new CaselawService())->getRelatedUsers($message->caselaw, true)->except($message->user_id),
+            (new NewMessageCreated($message->caselaw))
+            ->delay(now()->addMinutes(config('notifications.delay_in_minutes')))
+        );
 
         return $message;
     }

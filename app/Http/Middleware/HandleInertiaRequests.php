@@ -42,6 +42,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'permissions' => $request->user() ? $request->user()->permissions : [],
+                'unreadNotificationsCount' => $request->user() ? $request->user()->unreadNotifications->count() : 0, 
             ],
             'status' => session('status'),
             'inertia' => request()->inertia(),

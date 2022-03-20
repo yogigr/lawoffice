@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\VerifyEmailQueued;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -72,9 +73,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    //for lawyers
     public function caselaws()
     {
         return $this->belongsToMany(Caselaw::class, 'caselaw_user');
+    }
+
+    // for clients
+    public function cases()
+    {
+        return $this->hasMany(Caselaw::class, 'client_id');
     }
 
     //custom
@@ -105,5 +113,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getAgeAttribute()
     {
         return Carbon::parse($this->date_of_birth)->age;
+    }
+
+    //send email verifications
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(
+            (new VerifyEmailQueued())->delay(
+                now()->addMinutes(config('notifications.delay_in_minutes'))
+            )
+        );
     }
 }

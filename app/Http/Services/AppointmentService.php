@@ -7,6 +7,8 @@ use App\Models\Caselaw;
 use App\Models\Appointment;
 use App\Classes\CodeGenerator;
 use App\Http\Requests\AppointmentRequest;
+use App\Notifications\NewAppointmentCreated;
+use Illuminate\Support\Facades\Notification;
 
 class AppointmentService
 {
@@ -55,6 +57,12 @@ class AppointmentService
             'location' => $request->input('location'), 
             'caselaw_id' => $request->input('caselaw_id')
         ]);
+        
+        Notification::send(
+            (new CaselawService())->getRelatedUsers($appointment->caselaw),
+            (new NewAppointmentCreated($appointment->caselaw))
+            ->delay(now()->addMinutes(config('notifications.delay_in_minutes')))
+        );
 
         return $appointment;
     }

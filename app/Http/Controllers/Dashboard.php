@@ -19,7 +19,7 @@ class Dashboard extends Controller
             'activeLawyerCount' => $service->getActiveLawyerCount(),
             'serviceCount' => $service->getServiceCount(),
             'todayAppointments' => AppointmentResource::collection($service->getTodayAppointments()),
-            'todayInvoices' => InvoiceResource::collection($service->getTodayInvoices())
+            'todayInvoices' => $service->getTodayInvoices() ? InvoiceResource::collection($service->getTodayInvoices()) : null
         ]);
     }
 }

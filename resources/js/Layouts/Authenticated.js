@@ -5,7 +5,7 @@ import {
   MenuAlt2Icon,
   XIcon,
 } from "@heroicons/react/outline";
-import { Head } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import Navigation from "@/Components/Navigation";
 import ValidationErrors from "@/Components/ValidationErrors";
 import SuccessAlert from "@/Components/SuccessAlert";
@@ -125,9 +125,11 @@ export default function Authenticated({ props, title, children }) {
           <div className="flex-1 px-4 flex justify-between">
             <div className="flex-1 flex"></div>
             <div className="ml-4 flex items-center md:ml-6">
-              <button
-                type="button"
-                className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              <Link
+                href={route('notification.index')}
+                className="relative bg-white p-1 rounded-full text-gray-400
+                 hover:text-gray-500 focus:outline-none 
+                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span className="sr-only">
                   View notifications
@@ -136,7 +138,12 @@ export default function Authenticated({ props, title, children }) {
                   className="h-6 w-6"
                   aria-hidden="true"
                 />
-              </button>
+                {auth.unreadNotificationsCount > 0 && (
+                  <div className="absolute top-2 left-0 -mt-4 -mr-4 px-2 py-1 bg-red-700 rounded-full text-xs text-white">
+                    {auth.unreadNotificationsCount}
+                  </div>
+                )}
+              </Link>
 
               {/* Profile dropdown */}
               <Menu as="div" className="ml-3 relative">

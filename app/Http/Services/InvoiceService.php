@@ -7,6 +7,7 @@ use App\Models\Caselaw;
 use App\Models\Invoice;
 use App\Classes\CodeGenerator;
 use App\Http\Requests\InvoiceRequest;
+use App\Notifications\NewInvoiceCreated;
 
 class InvoiceService
 {
@@ -60,6 +61,11 @@ class InvoiceService
                 'note' => $d['note']
             ]);
         }
+
+        $invoice->caselaw->client->notify(
+            (new NewInvoiceCreated($invoice->caselaw))
+            ->delay(now()->addMinutes(config('notifications.delay_in_minutes')))
+        );
 
         return $invoice;
     }

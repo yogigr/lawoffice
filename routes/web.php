@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('company', [CompanyController::class, 'index'])->name('company.index');
     Route::patch('company', [CompanyController::class, 'update'])->name('company.update');
+
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
+    Route::patch('notification/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notification.mark_as_read');
+    Route::patch('notification/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notification.mark_all_as_read');
+    Route::delete('notification/delete-all', [NotificationController::class, 'destroy'])->name('notification.destroy');
 });
 
 require __DIR__.'/auth.php';
