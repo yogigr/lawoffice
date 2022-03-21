@@ -1,20 +1,23 @@
+import ConfirmationModal from '@/Components/ConfirmationModal';
 import EmptyState from '@/Components/EmptyState';
 import Input from '@/Components/Input';
 import Pagination from '@/Components/Pagination';
 import Authenticated from '@/Layouts/Authenticated';
 import { Inertia } from '@inertiajs/inertia';
 import React, { useEffect, useRef, useState } from 'react';
-import InvoiceShow from '../Invoice/InvoiceShow';
+import InvoiceForm from './InvoiceForm';
 import InvoiceTable from './InvoiceTable';
 
 const Index = (props) => {
   const { invoices, auth } = props;
   const isMounted = useRef(false);
+  const [formOpen, setFormOpen] = useState(false)
+  const [selectedInvoice, setSelectedInvoice] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [params, setParams] = useState({
     code: '',
     page: 1
   });
-  const [selectedInvoice, setSelectedInvoice] = useState(null);
 
   const handleChangeParams = (key, value) => {
     setParams({
@@ -43,11 +46,19 @@ const Index = (props) => {
 
   return (
     <Authenticated props={props} title="Invoices">
-      <InvoiceShow
-        open={selectedInvoice ? true : false}
-        onClose={() => setSelectedInvoice(null)}
-        invoice={selectedInvoice}
-      />
+      {
+        selectedInvoice && (
+          <InvoiceForm
+            open={formOpen}
+            caselaw={selectedInvoice.caselaw}
+            invoice={selectedInvoice}
+            onClose={() => {
+              setFormOpen(false)
+              setSelectedInvoice(null)
+            }}
+          />
+        )
+      }
       <div className="bg-white overflow-x-visible shadow sm:rounded-lg divide-y divide-gray-200 mt-3">
         <div className="px-4 py-5 sm:p-6">
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5'>
@@ -66,10 +77,16 @@ const Index = (props) => {
             invoices && invoices.data.length > 0 ? (
               <InvoiceTable
                 invoices={invoices}
-                editable={false}
-                deleteable={false}
                 showCase={true}
-                onShowDetail={v => setSelectedInvoice(v)}
+                onEdit={v => {
+                  setSelectedInvoice(v)
+                  setFormOpen(true);
+                }}
+                onDelete={v => {
+                  setSelectedInvoice(v)
+                  setDeleteModal(true)
+                }}
+                onShowDetail={v => Inertia.get(route('invoice.show', v))}
                 permissions={auth.permissions}
               />
             ) : (
@@ -88,6 +105,20 @@ const Index = (props) => {
           )
         }
       </div>
+      <ConfirmationModal
+        title="Konfirmasi hapus invoice"
+        message="Yakin hapus invoice?"
+        open={deleteModal}
+        onCancel={() => {
+          setSelectedInvoice(null)
+          setDeleteModal(false)
+        }}
+        onConfirm={() =>
+          Inertia.visit(`/invoice/${selectedInvoice.id}`, {
+            method: "delete",
+          })
+        }
+      />
     </Authenticated>
   );
 }

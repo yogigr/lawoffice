@@ -47,7 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/caselaw', CaselawController::class);
 
     Route::resource('/appointment', AppointmentController::class)->only(['index', 'store', 'update', 'destroy']);
-    Route::resource('/invoice', InvoiceController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/invoice/{invoice}/pdf', [InvoiceController::class, 'pdf'])->name('invoice.pdf');
+    Route::resource('/invoice', InvoiceController::class)->except(['create', 'edit']);
     Route::resource('/message', MessageController::class)->only(['store', 'destroy']);
 
     Route::get('/document/{document}/download', [DocumentController::class, 'download'])->name('document.download');

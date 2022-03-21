@@ -54,7 +54,7 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
       name: "Invoices",
       href: route('invoice.index'),
       icon: CalculatorIcon,
-      current: route().current('invoice.index'),
+      current: route().current('invoice.index') || route().current('invoice.show'),
       show: permissions.includes('view-invoice')
     },
     {

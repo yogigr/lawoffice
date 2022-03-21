@@ -22,7 +22,10 @@ const InvoiceShow = ({ open, onClose, invoice }) => {
               {
                 label: '',
                 value: (
-                  <CircularButton className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-200'>
+                  <CircularButton 
+                    className='bg-gray-100 hover:bg-gray-200 focus:ring-gray-200'
+                    onClick={() => window.open(route('invoice.pdf', invoice), '_blank')}
+                  >
                     <DownloadIcon className='w-4 h-4' />
                   </CircularButton>
                 )

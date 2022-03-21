@@ -8,7 +8,7 @@ use App\Http\Requests\CompanyRequest;
 
 class CompanyService
 {
-    protected $company;
+    public $company;
     protected $uploader;
 
     public function __construct()

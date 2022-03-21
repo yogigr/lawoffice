@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Invoice extends Model
 {
@@ -25,13 +26,27 @@ class Invoice extends Model
     }
 
     //custom
+    public function getSubtotalAttribute()
+    {
+        $subtotal = 0;
+        foreach ($this->details as $detail) {
+            $subtotal += $detail->amount;
+        }
+        return $subtotal;
+    }
+
     public function getTotalAttribute()
     {
-        $total = 0;
-        foreach ($this->details as $detail) {
-            $total += $detail->amount;
-        }
+        return $this->subtotal + $this->tax - $this->discount;
+    }
 
-        return $total + $this->tax - $this->discount;
+    public function getDateFormattedAttribute()
+    {
+        return Carbon::parse($this->date)->format('d/m/Y');
+    }
+
+    public function getDueDateFormattedAttribute()
+    {
+        return Carbon::parse($this->due_date)->format('d/m/Y');
     }
 }
