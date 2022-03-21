@@ -26,7 +26,9 @@ class InvoiceResource extends JsonResource
             'is_paid' => $this->is_paid,
             'details' => $this->details,
             'caselaw' => $this->caselaw,
-            'total' => $this->total
+            'total' => $this->total,
+            'date_formatted' => $this->date_formatted,
+            'due_date_formatted' => $this->due_date_formatted
         ];
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Caselaw extends Model
 {
@@ -57,5 +58,16 @@ class Caselaw extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'caselaw_user');
+    }
+
+    //custom
+    public function getStartDateFormattedAttribute()
+    {
+        return Carbon::parse($this->start_date)->format('d/m/Y');
+    }
+
+    public function getEndDateFormattedAttribute()
+    {
+        return $this->end_date ? Carbon::parse($this->end_date)->format('d/m/Y') : '';
     }
 }

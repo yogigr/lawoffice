@@ -66,16 +66,16 @@ const AppointmentTable = ({
                   appointments.data.map((appointment) => (
                     <tr key={appointment.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{appointment.code}</div>
+                        <div className="text-sm text-gray-500">{appointment.code}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
-                          <div className='flex'>
-                            <div className='flex'>
+                        <div className="text-sm text-gray-500">
+                          <div className='flex items-center'>
+                            <div className='flex items-center'>
                               <CalendarIcon className='mr-1 h-5 w-5' />
-                              {appointment.date}
+                              {appointment.date_formatted}
                             </div>
-                            <div className='ml-2 flex'>
+                            <div className='ml-2 flex items-center'>
                               <ClockIcon className='mr-1 h-5 w-5' />
                               {appointment.time}
                             </div>
@@ -83,10 +83,10 @@ const AppointmentTable = ({
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{appointment.title}</div>
+                        <div className="text-sm text-gray-500">{appointment.title}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{appointment.type}</div>
+                        <div className="text-sm text-gray-500">{appointment.type}</div>
                       </td>
                       {
                         showCase && (

@@ -26,12 +26,12 @@ const AppointmentShow = ({ open, onClose, appointment }) => {
               {
                 label: 'Datetime',
                 value: (
-                  <div className='flex'>
-                    <div className='flex'>
+                  <div className='flex items-center'>
+                    <div className='flex items-center'>
                       <CalendarIcon className='mr-1 h-5 w-5' />
-                      {appointment.date}
+                      {appointment.date_formatted}
                     </div>
-                    <div className='ml-2 flex'>
+                    <div className='ml-2 flex items-center'>
                       <ClockIcon className='mr-1 h-5 w-5' />
                       {appointment.time}
                     </div>

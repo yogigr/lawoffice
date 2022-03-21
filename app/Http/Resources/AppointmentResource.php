@@ -24,7 +24,8 @@ class AppointmentResource extends JsonResource
             'type' => $this->type, 
             'location' => $this->location, 
             'caselaw_id' => $this->caselaw_id,
-            'caselaw' => $this->caselaw
+            'caselaw' => $this->caselaw,
+            'date_formatted' => $this->date_formatted
         ];
     }
 }

@@ -29,7 +29,9 @@ class CaselawResource extends JsonResource
             'client' => $this->client,
             'service' => $this->service,
             'status' => $this->status,
-            'lawyers' => $this->users   
+            'lawyers' => $this->users,
+            'start_date_formatted' => $this->start_date_formatted,
+            'end_date_formatted' => $this->end_date_formatted   
         ];
     }
 }

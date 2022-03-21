@@ -53,6 +53,10 @@ const DocumentShow = ({
                 )
               },
               {
+                label: 'Datetime',
+                value: document.updated_at
+              },
+              {
                 label: '',
                 value: (
                   <CircularButton

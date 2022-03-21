@@ -24,7 +24,8 @@ class DocumentResource extends JsonResource
             'user_id' => $this->user_id,
             'created_at' => $this->created_at,
             'user' => $this->user,
-            'role' => $this->user->role->name ?? ''
+            'role' => $this->user->role->name ?? '',
+            'updated_at' => $this->updated_at
         ];
     }
 }

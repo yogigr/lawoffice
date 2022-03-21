@@ -65,7 +65,7 @@ const Table = ({ caselaws }) => {
                         <div className="text-sm text-gray-900">{caselaw.title}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{caselaw.start_date}</div>
+                        <div className="text-sm text-gray-900">{caselaw.start_date_formatted}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
                         <img

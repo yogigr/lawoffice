@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Appointment extends Model
 {
@@ -17,5 +18,11 @@ class Appointment extends Model
     public function caselaw()
     {
         return $this->belongsTo(Caselaw::class);
+    }
+
+    //custom
+    public function getDateFormattedAttribute()
+    {
+        return Carbon::parse($this->date)->format('d/m/Y');
     }
 }

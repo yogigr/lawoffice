@@ -73,26 +73,26 @@ const InvoiceTable = ({
                   invoices.data.map((invoice) => (
                     <tr key={invoice.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{invoice.code}</div>
+                        <div className="text-sm text-gray-500">{invoice.code}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-gray-500">
                           <div className='flex'>
                             <CalendarIcon className='mr-1 h-4 w-4' />
-                            {invoice.date}
+                            {invoice.date_formatted}
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-gray-500">
                           <div className='flex'>
                             <CalendarIcon className='mr-1 h-4 w-4' />
-                            {invoice.due_date}
+                            {invoice.due_date_formatted}
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <div className="text-sm text-gray-900">
+                        <div className="text-sm text-gray-500">
                           {toCurrency(invoice.total)}
                         </div>
                       </td>

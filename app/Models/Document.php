@@ -30,4 +30,9 @@ class Document extends Model
     {
         return Carbon::parse($value)->diffForHumans();
     }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y H:i:s');
+    }
 }

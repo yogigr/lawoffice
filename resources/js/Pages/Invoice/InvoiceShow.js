@@ -36,11 +36,11 @@ const InvoiceShow = ({ open, onClose, invoice }) => {
               },
               {
                 label: 'Date',
-                value: invoice.date
+                value: invoice.date_formatted
               },
               {
                 label: 'Due Date',
-                value: invoice.due_date
+                value: invoice.due_date_formatted
               },
               {
                 label: 'note',
