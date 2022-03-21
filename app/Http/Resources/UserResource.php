@@ -28,6 +28,7 @@ class UserResource extends JsonResource
             'role' => $this->role,
             'age' => $this->age,
             'verified' => $this->hasVerifiedEmail(),
+            'date_of_birth_formatted' => $this->date_of_birth_formatted
         ];
     }
 }

@@ -20,7 +20,7 @@ const Show = (props) => {
                 { label: 'Nama lengkap', value: user.name },
                 { label: 'Email', value: user.email },
                 { label: 'Role', value: user.role.name },
-                { label: 'Tanggal lahir', value: user.date_of_birth },
+                { label: 'Tanggal lahir', value: user.date_of_birth_formatted },
                 { label: 'Usia', value: `${user.age} TH` },
                 { label: 'Jenis kelamin', value: user.gender === 'm' ? 'Male' : user.gender === 'f' ? 'Female' : '' },
                 { label: 'Mobile', value: user.mobile },

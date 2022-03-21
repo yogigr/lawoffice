@@ -115,6 +115,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return Carbon::parse($this->date_of_birth)->age;
     }
 
+    public function getDateOfBirthFormattedAttribute()
+    {
+        return Carbon::parse($this->date_of_birth)->format('d/m/Y');
+    }
+
     //send email verifications
     public function sendEmailVerificationNotification()
     {
