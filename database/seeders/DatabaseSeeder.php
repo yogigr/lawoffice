@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             StatusSeeder::class,
             CompanySeeder::class,
-            BlogSeeder::class,
             BankSeeder::class
             //CaselawSeeder::class
         ]);

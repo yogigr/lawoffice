@@ -50,12 +50,6 @@ return [
     'edit-user',
     'delete-user',
 
-    //blog
-    'view-blog',
-    'create-blog',
-    'edit-blog',
-    'delete-blog',
-
     //setting
     'view-setting',
     'edit-setting'

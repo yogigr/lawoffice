@@ -74,13 +74,6 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
       show: permissions.includes('view-user')
     },
     {
-      name: "Blogs",
-      href: "#",
-      icon: TagIcon,
-      current: false,
-      show: permissions.includes('view-blog')
-    },
-    {
       name: "Settings",
       href: route('company.index'),
       icon: CogIcon,
