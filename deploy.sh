@@ -2,7 +2,7 @@
 
 set -e
 
-vendor/bin/phpunit
+# vendor/bin/phpunit
 
 (git push) || true
 
