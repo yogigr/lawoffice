@@ -68,11 +68,15 @@ const Table = ({ caselaws }) => {
                         <div className="text-sm text-gray-900">{caselaw.start_date_formatted}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <img
-                          className="inline-block h-6 w-6 rounded-full"
-                          src={caselaw.client.picture}
-                          alt={caselaw.client.name}
-                        />
+                        {
+                          caselaw.client && (
+                            <img
+                              className="inline-block h-6 w-6 rounded-full"
+                              src={caselaw.client.picture}
+                              alt={caselaw.client.name}
+                            />
+                          )
+                        }
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
                         <div className="flex -space-x-1 relative z-0 overflow-hidden">

@@ -53,7 +53,7 @@ const Show = (props) => {
               { label: 'End date', value: caselaw.end_date_formatted },
               { label: 'Layanan Hukum', value: caselaw.service ? caselaw.service.name : '' },
               { label: 'Status', value: <CaselawStatusBadge caselaw={caselaw} /> },
-              { label: 'Client', value: <AvatarLink href={route('user.show', caselaw.client)} avatar={caselaw.client.picture} name={caselaw.client.name} email={caselaw.client.email} /> },
+              { label: 'Client', value: caselaw.client ? (<AvatarLink href={route('user.show', caselaw.client)} avatar={caselaw.client.picture} name={caselaw.client.name} email={caselaw.client.email} />) : '' },
             ]}
           />
         </div>
