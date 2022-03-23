@@ -142,7 +142,7 @@ const InvoiceForm = ({
                   <tr>
                     <th scope="col" className="relative px-6 py-3 w-5">
                       <CircularButton
-                        className='bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-700'
+                        className='bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-900'
                         onClick={() => setData('details', [
                           ...data.details,
                           {

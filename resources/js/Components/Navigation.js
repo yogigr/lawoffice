@@ -78,8 +78,8 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
       href: route('company.index'),
       icon: CogIcon,
       current: route().current('config.index') || route().current('company.index')
-          || route().current('bank.index') || route().current('bank.create')
-          || route().current('bank.edit'),
+        || route().current('bank.index') || route().current('bank.create')
+        || route().current('bank.edit'),
       show: permissions.includes('view-setting')
     },
   ];
@@ -92,15 +92,15 @@ const Navigation = ({ className, permissions, roleId, desktop = true }) => {
             href={item.href}
             className={classNames(
               item.current
-                ? "bg-indigo-800 text-white"
-                : "text-indigo-100 hover:bg-indigo-600",
+                ? "bg-primary-800 text-white"
+                : "text-white hover:bg-primary-800",
               "group flex items-center px-2 py-2 text-base font-medium rounded-md"
             )}
           >
             <item.icon
               className={classNames(
                 desktop ? 'mr-3' : 'mr-4',
-                "flex-shrink-0 h-6 w-6 text-indigo-300"
+                "flex-shrink-0 h-6 w-6 text-white"
               )}
               aria-hidden="true"
             />

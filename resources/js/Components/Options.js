@@ -10,7 +10,7 @@ export default function Options({ children }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-light">
+        <Menu.Button className="rounded-full flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-primary-600">
           <span className="sr-only">Open options</span>
           <DotsVerticalIcon className="h-5 w-5" aria-hidden="true" />
         </Menu.Button>

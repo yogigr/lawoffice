@@ -50,7 +50,7 @@ export default function Login({ status, canResetPassword, canRegister, company }
               type="email"
               autoComplete="email"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
               onChange={(e) => onHandleChange(e)}
             />
@@ -63,7 +63,7 @@ export default function Login({ status, canResetPassword, canRegister, company }
               type="password"
               value={data.password}
               autoComplete="current-password"
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
               placeholder="Password"
               onChange={(e) => onHandleChange(e)}
             />
@@ -86,7 +86,7 @@ export default function Login({ status, canResetPassword, canRegister, company }
             {canRegister && (
               <Link
                 href={route("register")}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-primary-600 hover:text-primary-500"
               >
                 Belum register?
               </Link>
@@ -96,7 +96,7 @@ export default function Login({ status, canResetPassword, canRegister, company }
             {canResetPassword && (
               <Link
                 href={route("password.request")}
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-primary-600 hover:text-primary-500"
               >
                 Lupa password?
               </Link>

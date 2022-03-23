@@ -29,7 +29,7 @@ export default function SlideForm({ open, onClose, title, onSubmit, submitText, 
                         <div className="ml-3 h-7 flex items-center">
                           <button
                             type="button"
-                            className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900"
                             onClick={onClose}
                           >
                             <span className="sr-only">Close panel</span>
@@ -47,14 +47,14 @@ export default function SlideForm({ open, onClose, title, onSubmit, submitText, 
                   <div className="flex-shrink-0 px-4 py-4 flex justify-end">
                     <button
                       type="button"
-                      className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="bg-gray-900 py-2 px-4 border border-gray-900 rounded-md shadow-sm text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                       onClick={onClose}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="ml-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                     >
                       {submitText}
                     </button>

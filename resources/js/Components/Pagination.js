@@ -34,7 +34,7 @@ const Pagination = ({ meta, onChangePage }) => {
                   onClick={() => onChangePage(getPageNumber(link.url))}
                   className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium 
                     ${link.active
-                      ? "z-10 bg-indigo-600 border-indigo-800 text-white"
+                      ? "z-10 bg-gray-900 border-gray-800 text-white"
                       : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
                     }`}
                 >

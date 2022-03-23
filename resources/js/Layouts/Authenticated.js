@@ -44,7 +44,7 @@ export default function Authenticated({ props, title, children }) {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700">
+            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-primary-700">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -92,7 +92,7 @@ export default function Authenticated({ props, title, children }) {
       </Transition.Root>
 
       {/* Static sidebar for desktop */}
-      <div className="hidden bg-indigo-700 md:flex md:flex-shrink-0">
+      <div className="hidden bg-primary-700 md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
@@ -116,7 +116,7 @@ export default function Authenticated({ props, title, children }) {
         <div className="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
           <button
             type="button"
-            className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+            className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 md:hidden"
             onClick={() => setSidebarOpen(true)}
           >
             <span className="sr-only">Open sidebar</span>
@@ -129,7 +129,7 @@ export default function Authenticated({ props, title, children }) {
                 href={route('notification.index')}
                 className="relative bg-white p-1 rounded-full text-gray-400
                  hover:text-gray-500 focus:outline-none 
-                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                 focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
               >
                 <span className="sr-only">
                   View notifications
@@ -148,7 +148,7 @@ export default function Authenticated({ props, title, children }) {
               {/* Profile dropdown */}
               <Menu as="div" className="ml-3 relative">
                 <div>
-                  <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                     <span className="sr-only">
                       Open user menu
                     </span>

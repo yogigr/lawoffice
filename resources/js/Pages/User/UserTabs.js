@@ -26,7 +26,7 @@ const UserTabs = ({ user, permissions }) => {
               permissions.includes('edit-user') && (
                 <Link
                   href={route("user.edit", user)}
-                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
                 >
                   Edit
                 </Link>
@@ -37,7 +37,7 @@ const UserTabs = ({ user, permissions }) => {
                 <button
                   type="button"
                   onClick={() => setDeleteModal(true)}
-                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900"
                 >
                   Hapus
                 </button>

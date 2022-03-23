@@ -26,7 +26,7 @@ const Select = ({
       <select
         id={id}
         name={name}
-        className={`mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 w-full focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md ${className}`}
+        className={`mt-1 block pl-3 pr-10 py-2 text-base border-gray-300 w-full focus:outline-none focus:ring-primary-600 focus:border-primary-600 sm:text-sm rounded-md ${className}`}
         value={selected}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -37,12 +37,12 @@ const Select = ({
             {e.name}
           </option>,
           children &&
-            e[children].length > 0 &&
-            e[children].map((child) => (
-              <option value={child.id} key={child.id}>
-                &nbsp; {child.name}
-              </option>
-            )),
+          e[children].length > 0 &&
+          e[children].map((child) => (
+            <option value={child.id} key={child.id}>
+              &nbsp; {child.name}
+            </option>
+          )),
         ])}
       </select>
     </div>

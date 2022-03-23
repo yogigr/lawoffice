@@ -107,7 +107,7 @@ const InvoiceTable = ({
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm">
                               <Link
-                                className="text-indigo-600 hover:text-indigo-700"
+                                className="text-primary-600 hover:text-primary-700"
                                 href={route('caselaw.show', invoice.caselaw)}
                               >
                                 {invoice.caselaw.code}

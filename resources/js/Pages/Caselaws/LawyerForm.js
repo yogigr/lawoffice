@@ -34,7 +34,7 @@ const LawyerForm = ({ open, caselaw, users, onClose }) => {
           />
         </div>
         <div className='mt-3'>
-          <Button processing={processing}>
+          <Button processing={processing} className='bg-gray-900 hover:bg-gray-800 focus:ring-gray-900'>
             Tambahkan
           </Button>
         </div>

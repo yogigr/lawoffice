@@ -76,7 +76,7 @@ const LaywerTable = ({ lawyers, caselaw, permissions }) => {
                           {
                             permissions.includes('delete-lawyer') && (
                               <CircularButton
-                                className='text-white bg-red-600 hover:bg-red-700 focus:ring-red-500'
+                                className='text-white bg-gray-900 hover:bg-gray-800 focus:ring-gray-900'
                                 onClick={() => setSelectedLawyerId(lawyer.id)}
                               >
                                 <TrashIcon className="h-5 w-5" />

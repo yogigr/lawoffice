@@ -25,7 +25,7 @@ export default function VerifyEmail({ status, csrf_token, company }) {
           <Button processing={processing}>Resend Verification Email</Button>
         </div>
         <div className='mt-4 text-center'>
-          <button onClick={() => logoutForm.current.submit()} type='button' className='underline text-sm text-indigo-600 hover:text-indigo-900'>
+          <button onClick={() => logoutForm.current.submit()} type='button' className='underline text-sm text-primary-600 hover:text-primary-900'>
             Logout
           </button>
         </div>

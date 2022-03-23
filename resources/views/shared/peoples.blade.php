@@ -12,7 +12,7 @@
               <img class="w-16 h-16 rounded-full lg:w-20 lg:h-20" src="{{ $lawyer->picture }}" alt="{{ $lawyer->name }}">
               <div class="font-medium text-lg leading-6 space-y-1">
                 <h3>{{ $lawyer->name }}</h3>
-                <p class="text-indigo-600">{{ $lawyer->role->name }}</p>
+                <p class="text-primary-600">{{ $lawyer->role->name }}</p>
               </div>
             </div>
           </li>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="mt-16 flex justify-center">
-      <button id="toggle-people-btn" class="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+      <button id="toggle-people-btn" class="flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10">
         SHOW ALL
       </button>
     </div>

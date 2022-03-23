@@ -110,7 +110,7 @@ const Form = ({ props, title, desc }) => {
           />
         </div>
         <div className='pt-5'>
-          <Button processing={processing}>
+          <Button processing={processing} className='sm: w-1/2 md:w-1/6'>
             {caselaw ? "Update" : "Simpan"}
           </Button>
         </div>

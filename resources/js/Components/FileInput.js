@@ -37,7 +37,7 @@ const FileInput = ({
           <div className="flex text-sm text-gray-600 justify-center">
             <label
               htmlFor={name}
-              className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none"
+              className="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none"
             >
               <span>{!value ? label : ""}</span>
               <input

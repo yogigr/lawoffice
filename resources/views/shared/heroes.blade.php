@@ -16,7 +16,7 @@
                     <img class="h-8 w-auto sm:h-10" src="{{ $company->logo }}">
                   </a>
                   <div class="-mr-2 flex items-center md:hidden">
-                    <button type="button" class="open-mobile-menu-button bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+                    <button type="button" class="open-mobile-menu-button bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-expanded="false">
                       <span class="sr-only">Open main menu</span>
                       <!-- Heroicon name: outline/menu -->
                       <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -32,9 +32,9 @@
                 @endforeach
                 @if(Route::has('login'))
                 @auth
-                <a href="{{ route('dashboard') }}" class="font-medium text-indigo-600 hover:text-indigo-500">DASHBOARD</a>
+                <a href="{{ route('dashboard') }}" class="font-medium text-primary-600 hover:text-primary-500">DASHBOARD</a>
                 @else
-                <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">LOGIN</a>
+                <a href="{{ route('login') }}" class="font-medium text-primary-600 hover:text-primary-500">LOGIN</a>
                 @endauth
                 @endif
 
@@ -48,7 +48,7 @@
                   <img class="h-8 w-auto" src="{{ $company->logo }}" alt="{{ $company->name }}">
                 </div>
                 <div class="-mr-2">
-                  <button type="button" class="close-mobile-menu-button bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                  <button type="button" class="close-mobile-menu-button bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500">
                     <span class="sr-only">Close main menu</span>
                     <!-- Heroicon name: outline/x -->
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -64,11 +64,11 @@
               </div>
               @if(Route::has('login'))
               @auth
-              <a href="{{ url('dashboard') }}" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
+              <a href="{{ url('dashboard') }}" class="block w-full px-5 py-3 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100">
                 DASHBOARD
               </a>
               @else
-              <a href="{{ url('login') }}" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
+              <a href="{{ url('login') }}" class="block w-full px-5 py-3 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100">
                 LOGIN
               </a>
               @endauth
@@ -82,19 +82,19 @@
           <div class="sm:text-center lg:text-left">
             <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
               <span class="block xl:inline">{{ $company->name }}</span><br>
-              <span class="block text-indigo-600 xl:inline">Official Web Site</span>
+              <span class="block text-primary-600 xl:inline">Official Web Site</span>
             </h1>
             <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
               {{ $company->meta_desc }}
             </p>
             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
               <div class="rounded-md shadow">
-                <a href="{{ url('consultation/create') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+                <a href="{{ url('consultation/create') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10">
                   FREE ONLINE CONSULTATION
                 </a>
               </div>
               <div class="mt-3 sm:mt-0 sm:ml-3">
-                <a href="#about" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
+                <a href="#about" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 md:py-4 md:text-lg md:px-10">
                   ABOUT US
                 </a>
               </div>

@@ -52,7 +52,7 @@ const AppointmentTable = ({
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        Case related
+                        Related case
                       </th>
                     )
                   }
@@ -93,7 +93,7 @@ const AppointmentTable = ({
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm">
                               <Link
-                                className="text-indigo-600 hover:text-indigo-700"
+                                className="text-primary-600 hover:text-primary-700"
                                 href={route('caselaw.show', appointment.caselaw)}
                               >
                                 {appointment.caselaw.code}

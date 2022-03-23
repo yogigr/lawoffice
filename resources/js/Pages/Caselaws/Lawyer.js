@@ -31,7 +31,7 @@ const Lawyer = (props) => {
             <div className="px-4 py-5 sm:p-6">
               <div className='grid grid-cols-1 sm:grid-cols-6'>
                 <div>
-                  <Button type='button' onClick={() => setFormOpen(true)}>
+                  <Button type='button' className='bg-gray-900 hover:bg-gray-800 focus:ring-gray-900' onClick={() => setFormOpen(true)}>
                     <PlusIcon className='mr-1 h-4 w-4' />
                     Lawyer
                   </Button>
