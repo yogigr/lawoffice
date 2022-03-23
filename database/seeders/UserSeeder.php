@@ -22,10 +22,12 @@ class UserSeeder extends Seeder
             'gender' => 'm'
         ]);
 
+        /*
         //lawyer
         User::factory()->count(15)->create(['role_id' => 2]);
 
         //client
         User::factory()->count(25)->create();
+        */
     }
 }
