@@ -16,10 +16,24 @@ class UserSeeder extends Seeder
     {
         //admin
         User::factory()->create([
-            'name' => 'Administator',
-            'email' => 'admin@admin.com',
+            'name' => 'Yogi Gilang Ramadhan',
+            'email' => 'yogigilang182@gmail.com',
             'role_id' => 1,
             'gender' => 'm'
+        ]);
+
+        User::factory()->create([
+            'name' => 'Gian Tantowi',
+            'email' => 'giantantowi@gmail.com',
+            'role_id' => 1,
+            'gender' => 'm'
+        ]);
+
+        User::factory()->create([
+            'name' => 'Marintan Vira',
+            'email' => 'marintan.vira@gmail.com',
+            'role_id' => 1,
+            'gender' => 'f'
         ]);
 
         /*
